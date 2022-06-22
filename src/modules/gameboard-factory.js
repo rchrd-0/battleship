@@ -21,18 +21,18 @@ export default function gameBoardFactory() {
   };
 
   const gameBoard = createBoard();
-  const placeShip = (ship, index, axis) => {
+  const placeShip = (ship, xy, axis) => {
     if (axis === 'x') {
-      const x = index[0];
-      let y = index[1];
+      const x = xy[0];
+      let y = xy[1];
       for (let i = 0; i < ship.length; i++) {
         gameBoard[x][y].shipId = ship.id;
         y += 1;
       }
     }
     if (axis === 'y') {
-      let x = index[0];
-      const y = index[1];
+      let x = xy[0];
+      const y = xy[1];
       for (let i = 0; i < ship.length; i++) {
         gameBoard[x][y].shipId = ship.id;
         x += 1;
