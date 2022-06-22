@@ -21,6 +21,7 @@ export default function shipFactory(length, id) {
   }
   return {
     id,
+    length,
     health,
     hit,
     isSunk
