@@ -7,12 +7,13 @@ export default function shipFactory(id, length) {
     }, {});
     return health;
   };
-  // const health = { where bool represents hit/no hit
+  const coords = [];
+  const health = createHealth(length);
+  // health = { where bool represents hit/no hit
   //   0: false,
   //   1: false,
   //   2: false,
   // }
-  const health = createHealth(length);
   const hit = (index) => {
     health[index] = true;
   }
@@ -23,6 +24,7 @@ export default function shipFactory(id, length) {
     id,
     length,
     health,
+    coords, 
     hit,
     isSunk
   }

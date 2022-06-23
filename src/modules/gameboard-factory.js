@@ -20,7 +20,7 @@ export default function gameBoardFactory() {
     }
     return gameBoard;
   };
-
+  const misses = [];
   const gameBoard = createBoard();
   const ships = [
     shipFactory(0, 5),
@@ -29,20 +29,38 @@ export default function gameBoardFactory() {
     shipFactory(3, 3),
     shipFactory(4, 2),
   ];
-  const placeShip = (ship, [x, y], axis) => {
+  const placeShip = (shipId, [x, y], axis) => {
+    const ship = ships[shipId];
     if (axis === 'x') {
       for (let i = 0; i < ship.length; i++) {
+        ship.coords.push([x, y])
         gameBoard[x][y].shipId = ship.id;
         y += 1;
       }
     }
     if (axis === 'y') {
       for (let i = 0; i < ship.length; i++) {
+        ship.coords.push([x, y])
         gameBoard[x][y].shipId = ship.id;
         x += 1;
       }
     }
   };
-
-  return { gameBoard, ships, placeShip };
+  const receiveAttack = (attack) => {
+    const [x, y] = attack;
+    const thisTile = gameBoard[x][y];
+    if (thisTile.hit) return
+    if (thisTile.shipId === null) {
+      misses.push(attack);
+    } else if (thisTile.shipId !== null) {
+      const thisShip = ships[thisTile.shipId];
+      for (let i = 0; i < thisShip.coords.length; i++) {
+        if (thisShip.coords[i].every((value, index) => value === attack[index])) {
+          thisShip.health[i] = true;
+        }
+      }
+    }
+    thisTile.hit = true;
+  };
+  return { gameBoard, misses, ships, placeShip, receiveAttack };
 }
