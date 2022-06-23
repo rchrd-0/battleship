@@ -32,30 +32,35 @@ export default function gameBoardFactory() {
   const placeShip = (shipId, [x, y], axis) => {
     const ship = ships[shipId];
     if (axis === 'x') {
+      // Place horizontally
       for (let i = 0; i < ship.length; i++) {
-        ship.coords.push([x, y])
-        gameBoard[x][y].shipId = ship.id;
-        y += 1;
-      }
-    }
-    if (axis === 'y') {
-      for (let i = 0; i < ship.length; i++) {
-        ship.coords.push([x, y])
+        ship.coords.push([x, y]);
         gameBoard[x][y].shipId = ship.id;
         x += 1;
       }
     }
+    if (axis === 'y') {
+      // Place vertically
+      for (let i = 0; i < ship.length; i++) {
+        ship.coords.push([x, y]);
+        gameBoard[x][y].shipId = ship.id;
+        y += 1;
+      }
+    }
   };
-  const receiveAttack = (attack) => {
-    const [x, y] = attack;
+  const hasShip = (tile) => tile.shipId !== null;
+  const receiveAttack = (target) => {
+    const [x, y] = target;
     const thisTile = gameBoard[x][y];
-    if (thisTile.hit) return
-    if (thisTile.shipId === null) {
-      misses.push(attack);
-    } else if (thisTile.shipId !== null) {
+    if (thisTile.hit) return;
+    if (!hasShip(thisTile)) {
+      misses.push(target);
+    } else if (hasShip(thisTile)) {
       const thisShip = ships[thisTile.shipId];
       for (let i = 0; i < thisShip.coords.length; i++) {
-        if (thisShip.coords[i].every((value, index) => value === attack[index])) {
+        if (
+          thisShip.coords[i].every((value, index) => value === target[index])
+        ) {
           thisShip.health[i] = true;
         }
       }
