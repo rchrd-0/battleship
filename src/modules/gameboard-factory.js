@@ -1,3 +1,4 @@
+import shipFactory from './ship-factory';
 // receiveAttack()
 // gridTile = {
 //   coords: x, y
@@ -21,18 +22,21 @@ export default function gameBoardFactory() {
   };
 
   const gameBoard = createBoard();
-  const placeShip = (ship, xy, axis) => {
+  const ships = [
+    shipFactory(0, 5),
+    shipFactory(1, 4),
+    shipFactory(2, 3),
+    shipFactory(3, 3),
+    shipFactory(4, 2),
+  ];
+  const placeShip = (ship, [x, y], axis) => {
     if (axis === 'x') {
-      const x = xy[0];
-      let y = xy[1];
       for (let i = 0; i < ship.length; i++) {
         gameBoard[x][y].shipId = ship.id;
         y += 1;
       }
     }
     if (axis === 'y') {
-      let x = xy[0];
-      const y = xy[1];
       for (let i = 0; i < ship.length; i++) {
         gameBoard[x][y].shipId = ship.id;
         x += 1;
@@ -40,5 +44,5 @@ export default function gameBoardFactory() {
     }
   };
 
-  return { gameBoard, placeShip };
+  return { gameBoard, ships, placeShip };
 }

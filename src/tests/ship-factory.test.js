@@ -1,7 +1,11 @@
 import shipFactory from '../modules/ship-factory';
 
+let ship;
+beforeEach(() => {
+  ship = shipFactory(10, 3);
+})
+
 test('health object & id of ship instance', () => {
-  const ship = shipFactory(3, 10);
   expect(ship.id).toBe(10);
   expect(ship.health).toEqual({
     0: false,
@@ -11,7 +15,7 @@ test('health object & id of ship instance', () => {
 });
 
 test('hit method', () => {
-  const ship = shipFactory(3, 0);
+  const ship = shipFactory(10, 3);
   ship.hit(0);
   ship.hit(2);
   ship.hit(0);
@@ -23,7 +27,6 @@ test('hit method', () => {
 });
 
 test('isSunk method; case true', () => {
-  const ship = shipFactory(3, 0);
   ship.hit(0);
   ship.hit(1);
   ship.hit(2);
@@ -31,7 +34,6 @@ test('isSunk method; case true', () => {
 })
 
 test('isSunk method; case false', () => {
-  const ship = shipFactory(3, 0);
   ship.hit(0);
   ship.hit(2);
   expect(ship.isSunk()).toBe(false);

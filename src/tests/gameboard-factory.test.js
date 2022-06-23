@@ -36,3 +36,15 @@ test('place ship; vertical y', () => {
   expect(board.gameBoard[1][5].shipId).toBe(ship.id);
   expect(board.gameBoard[2][5].shipId).toBe(ship.id);
 });
+
+test('ships created from shipFactory, test existence of properties', () => {
+  for (let i = 0; i < board.ships.length; i++) {
+    expect(Object.keys(board.ships[i])).toEqual([
+      'id',
+      'length',
+      'health',
+      'hit',
+      'isSunk',
+    ]);
+  }
+});

@@ -1,4 +1,4 @@
-export default function shipFactory(length, id) {
+export default function shipFactory(id, length) {
   const createHealth = (size) => {
     const array = [...Array(size).keys()];
     const health = array.reduce((prev, curr) => {
