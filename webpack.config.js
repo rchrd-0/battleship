@@ -14,7 +14,7 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       title: 'The Odin Project—Battleship',
-      filename: 'index.html',
+      template: './src/template.html',
     }),
     new MiniCssExtractPlugin({
       filename: 'style.css',
