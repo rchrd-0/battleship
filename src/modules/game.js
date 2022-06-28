@@ -1,18 +1,17 @@
 import playerFactory from './player-factory';
-import { renderBoard } from './dom';
+import * as dom from './dom'
 
 const players = {
-  player: null,
-  computer: null,
+  p1: null,
+  com: null,
 };
 
 function startGame() {
   const p1 = playerFactory('', 1, true);
   const computer = playerFactory('', 2, false);
-  players.player = p1;
-  players.computer = computer;
-  renderBoard(p1);
-  renderBoard(computer);
+  players.p1 = p1;
+  players.com = computer;
+  dom.renderBoard(players.p1, players.com);
 }
 
 export { players, startGame };

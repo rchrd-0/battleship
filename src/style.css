@@ -55,3 +55,7 @@ html {
 .board-cell {
   background-color: grey;
 }
+
+.board-cell.ship {
+  background-color: blue;
+}
