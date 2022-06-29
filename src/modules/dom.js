@@ -1,10 +1,10 @@
 const playerBoard = document.querySelector('#player-board');
 const compBoard = document.querySelector('#comp-board');
 
-const renderBoard = (...players) => {
-  players.forEach(player => {
+const createBoard = (...players) => {
+  players.forEach((player) => {
     const thisBoard = player.isHuman ? playerBoard : compBoard;
-    const {tiles} = player.board;
+    const { tiles } = player.board;
     for (let i = 0; i < tiles.length; i++) {
       for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
         const boardCell = document.createElement('div');
@@ -14,7 +14,7 @@ const renderBoard = (...players) => {
         thisBoard.appendChild(boardCell);
       }
     }
-  })
+  });
 };
 
 const renderShips = (player) => {
@@ -23,7 +23,9 @@ const renderShips = (player) => {
   for (let i = 0; i < coords.length; i++) {
     for (let j = 0; j < coords[i].length; j++) {
       const [x, y] = [coords[i][j][0], coords[i][j][1]];
-      const thisCell = playerBoard.querySelector(`[data-x='${x}'][data-y='${y}']`)
+      const thisCell = playerBoard.querySelector(
+        `[data-x='${x}'][data-y='${y}']`
+      );
       thisCell.classList.add('ship');
     }
   }
@@ -31,15 +33,23 @@ const renderShips = (player) => {
 
 const updateBoard = (player) => {
   const thisBoard = player.isHuman ? playerBoard : compBoard;
-  const {tiles} = player.board;
+  const { tiles } = player.board;
   for (let i = 0; i < tiles.length; i++) {
     for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
-      if (tiles[i][j].hit) {
-        const thisCell = thisBoard.querySelector(`[data-x='${i}'][data-y='${j}']`)
-        thisCell.classList.add('hit')
+      const thisTile = tiles[i][j];
+      const hasShip = thisTile.shipId !== null;
+      if (thisTile.hit) {
+        const thisCell = thisBoard.querySelector(
+          `[data-x='${i}'][data-y='${j}']`
+        );
+        if (hasShip) {
+          thisCell.classList.add('hit');
+        } else {
+          thisCell.classList.add('miss');
+        }
       }
     }
   }
-}
+};
 
-export { renderBoard, renderShips, updateBoard };
+export { createBoard, renderShips, updateBoard };
