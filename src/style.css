@@ -52,6 +52,10 @@ html {
   grid-gap: 1px;
 }
 
+.no-events {
+  pointer-events: none;
+}
+
 .board-cell {
   background-color: grey;
 }
@@ -60,10 +64,10 @@ html {
   background-color: blue;
 }
 
-.board-cell.ship.hit {
+.board-cell.hit {
   background-color: red;
 }
 
-.board-cell.hit {
+.board-cell.miss {
   background-color: yellow;
 }

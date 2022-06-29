@@ -1,12 +1,15 @@
 import gameBoardFactory from './gameboard-factory';
 
-export default function playerFactory(name, num, human) {
+export default function playerFactory(name, num, human, turn) {
   const playerName = name === '' ? `Player ${num}` : name;
   const gameBoard = gameBoardFactory();
   const moves = [];
   const makeMove = (target, enemyBoard) => {
     enemyBoard.receiveAttack(target);
     moves.push(target);
+  };
+  const toggleTurn = () => {
+    turn = !turn;
   };
 
   return {
@@ -19,6 +22,10 @@ export default function playerFactory(name, num, human) {
     get isHuman() {
       return human;
     },
+    get turn() {
+      return turn;
+    },
+    toggleTurn,
     makeMove,
   };
 }
