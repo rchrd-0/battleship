@@ -4,9 +4,9 @@ const compBoard = document.querySelector('#comp-board');
 const renderBoard = (...players) => {
   players.forEach(player => {
     const thisBoard = player.isHuman ? playerBoard : compBoard;
-    const boardObj = player.board.gameBoard;
-    for (let i = 0; i < boardObj.length; i++) {
-      for (let j = 0; j < Object.keys(boardObj[i]).length; j++) {
+    const {tiles} = player.board;
+    for (let i = 0; i < tiles.length; i++) {
+      for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
         const boardCell = document.createElement('div');
         boardCell.classList.add('board-cell');
         boardCell.dataset.x = i;
@@ -29,4 +29,17 @@ const renderShips = (player) => {
   }
 };
 
-export { renderBoard, renderShips };
+const updateBoard = (player) => {
+  const thisBoard = player.isHuman ? playerBoard : compBoard;
+  const {tiles} = player.board;
+  for (let i = 0; i < tiles.length; i++) {
+    for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
+      if (tiles[i][j].hit) {
+        const thisCell = thisBoard.querySelector(`[data-x='${i}'][data-y='${j}']`)
+        thisCell.classList.add('hit')
+      }
+    }
+  }
+}
+
+export { renderBoard, renderShips, updateBoard };

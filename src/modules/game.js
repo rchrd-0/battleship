@@ -7,10 +7,8 @@ const players = {
 };
 
 function startGame() {
-  const p1 = playerFactory('', 1, true);
-  const computer = playerFactory('', 2, false);
-  players.p1 = p1;
-  players.com = computer;
+  players.p1 = playerFactory('', 1, true);
+  players.com = playerFactory('', 2, false);
   dom.renderBoard(players.p1, players.com);
 }
 

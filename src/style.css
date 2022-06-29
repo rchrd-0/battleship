@@ -59,3 +59,11 @@ html {
 .board-cell.ship {
   background-color: blue;
 }
+
+.board-cell.ship.hit {
+  background-color: red;
+}
+
+.board-cell.hit {
+  background-color: yellow;
+}

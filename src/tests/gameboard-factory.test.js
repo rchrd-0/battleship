@@ -12,12 +12,12 @@ test('place ship; vertical y', () => {
       if (i === 0 && (j === 5 || j === 6 || j === 7)) {
         continue;
       }
-      expect(board.gameBoard[i][j].shipId).toBe(null);
+      expect(board.tiles[i][j].shipId).toBe(null);
     }
   }
-  expect(board.gameBoard[0][5].shipId).toBe(0);
-  expect(board.gameBoard[0][6].shipId).toBe(0);
-  expect(board.gameBoard[0][7].shipId).toBe(0);
+  expect(board.tiles[0][5].shipId).toBe(0);
+  expect(board.tiles[0][6].shipId).toBe(0);
+  expect(board.tiles[0][7].shipId).toBe(0);
 });
 
 test('place ship; vertical x', () => {
@@ -27,12 +27,12 @@ test('place ship; vertical x', () => {
       if (j === 5 && (i === 0 || i === 1 || i === 2)) {
         continue;
       }
-      expect(board.gameBoard[i][j].shipId).toBe(null);
+      expect(board.tiles[i][j].shipId).toBe(null);
     }
   }
-  expect(board.gameBoard[0][5].shipId).toBe(0);
-  expect(board.gameBoard[1][5].shipId).toBe(0);
-  expect(board.gameBoard[2][5].shipId).toBe(0);
+  expect(board.tiles[0][5].shipId).toBe(0);
+  expect(board.tiles[1][5].shipId).toBe(0);
+  expect(board.tiles[2][5].shipId).toBe(0);
 });
 
 test('ships created from shipFactory, test existence of properties', () => {
@@ -61,13 +61,13 @@ test('array of missed shots', () => {
 
 test('receiveAttack on empty tile', () => {
   board.receiveAttack([5, 5]);
-  expect(board.gameBoard[5][5].hit).toBe(true);
+  expect(board.tiles[5][5].hit).toBe(true);
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
       if (i === 5 && j === 5) {
         continue;
       }
-      expect(board.gameBoard[i][j].hit).toBe(false);
+      expect(board.tiles[i][j].hit).toBe(false);
     }
   }
 });
@@ -76,8 +76,8 @@ test('receiveAttack on ship', () => {
   board.placeShip(3, [1, 0], 'x');
   board.receiveAttack([1, 0]);
   board.receiveAttack([2, 0]);
-  expect(board.gameBoard[1][0].hit).toBe(true);
-  expect(board.gameBoard[2][0].hit).toBe(true);
+  expect(board.tiles[1][0].hit).toBe(true);
+  expect(board.tiles[2][0].hit).toBe(true);
 });
 
 test('receiveAttack and sink', () => {
