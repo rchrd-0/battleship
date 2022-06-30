@@ -9,8 +9,8 @@ const createBoard = (...players) => {
       for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
         const boardCell = document.createElement('div');
         boardCell.classList.add('board-cell');
-        boardCell.dataset.x = i;
-        boardCell.dataset.y = j;
+        boardCell.dataset.x = j;
+        boardCell.dataset.y = i;
         thisBoard.appendChild(boardCell);
       }
     }

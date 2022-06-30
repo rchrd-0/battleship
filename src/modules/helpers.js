@@ -39,4 +39,4 @@ const getRandomMove = (player) => {
 //   }
 // };
 
-export { getCellInfo, alreadyPlayed };
+export { getCellInfo, alreadyPlayed, getRandomMove };
