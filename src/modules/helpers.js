@@ -1,19 +1,23 @@
 const getCellInfo = (targetCell) => {
-  const cellInfo = [
-    targetCell.parentNode.dataset.board,
-    [Number(targetCell.dataset.x), Number(targetCell.dataset.y)],
-  ];
-  return cellInfo;
+  return [Number(targetCell.dataset.x), Number(targetCell.dataset.y)];
 };
 
-const alreadyPlayed = (playing, target) => {
-  const previousMoves = playing.moves;
+const alreadyPlayed = (player, target) => {
+  const previousMoves = player.moves;
   for (let i = 0; i < previousMoves.length; i++) {
     if (previousMoves[i].every((value, index) => value === target[index])) {
       return true;
     }
   }
   return false;
+};
+
+const generateRandom = () => {
+  const random = [
+    Math.floor(Math.random() * 10),
+    Math.floor(Math.random() * 10),
+  ];
+  return random;
 };
 
 // const getTurn = (obj) => {
