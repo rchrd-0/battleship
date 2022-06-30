@@ -8,9 +8,6 @@ export default function playerFactory(name, num, human, turn) {
     enemyBoard.receiveAttack(target);
     moves.push(target);
   };
-  const toggleTurn = () => {
-    turn = !turn;
-  };
 
   return {
     get name() {
@@ -25,7 +22,9 @@ export default function playerFactory(name, num, human, turn) {
     get turn() {
       return turn;
     },
-    toggleTurn,
+    get moves() {
+      return moves;
+    },
     makeMove,
   };
 }

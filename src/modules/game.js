@@ -1,5 +1,6 @@
 import playerFactory from './player-factory';
 import * as dom from './dom';
+import * as helpers from './helpers'
 
 const players = {
   p1: null,
@@ -15,6 +16,7 @@ const startGame = () => {
 const receiveMove = (target, coord) => {
   const playing = (target === 'p1') ? players.com : players.p1
   const enemy = players[target];
+  if (helpers.alreadyPlayed(playing, coord)) return
   playing.makeMove(coord, enemy.board)
   dom.updateBoard(enemy)
 }

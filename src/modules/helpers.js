@@ -6,6 +6,16 @@ const getCellInfo = (targetCell) => {
   return cellInfo;
 };
 
+const alreadyPlayed = (playing, target) => {
+  const previousMoves = playing.moves;
+  for (let i = 0; i < previousMoves.length; i++) {
+    if (previousMoves[i].every((value, index) => value === target[index])) {
+      return true;
+    }
+  }
+  return false;
+};
+
 // const getTurn = (obj) => {
 //   const keys = Object.keys(obj);
 
@@ -17,4 +27,4 @@ const getCellInfo = (targetCell) => {
 //   }
 // };
 
-export { getCellInfo };
+export { getCellInfo, alreadyPlayed };

@@ -48,16 +48,16 @@ test('ships created from shipFactory, test existence of properties', () => {
   }
 });
 
-test('array of missed shots', () => {
-  board.receiveAttack([5, 5]);
-  board.receiveAttack([3, 2]);
-  board.receiveAttack([7, 4]);
-  expect(board.misses).toEqual([
-    [5, 5],
-    [3, 2],
-    [7, 4],
-  ]);
-});
+// test('array of missed shots', () => {
+//   board.receiveAttack([5, 5]);
+//   board.receiveAttack([3, 2]);
+//   board.receiveAttack([7, 4]);
+//   expect(board.misses).toEqual([
+//     [5, 5],
+//     [3, 2],
+//     [7, 4],
+//   ]);
+// });
 
 test('receiveAttack on empty tile', () => {
   board.receiveAttack([5, 5]);
