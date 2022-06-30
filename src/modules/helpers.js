@@ -20,6 +20,14 @@ const generateRandom = () => {
   return random;
 };
 
+const getRandomMove = (player) => {
+  let randomMove = generateRandom();
+  while(alreadyPlayed(player, randomMove)) {
+    randomMove = generateRandom();
+  }
+  return randomMove;
+};
+
 // const getTurn = (obj) => {
 //   const keys = Object.keys(obj);
 
