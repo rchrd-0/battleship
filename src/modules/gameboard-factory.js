@@ -72,8 +72,8 @@ export default function gameBoardFactory() {
     return filterShips.length;
   };
   const allShipsSunk = () => {
-    const sunkShips = ships.filter((ship) => ship.isSunk() === true);
-    return sunkShips.length > 0;
+    const sunkShips = shipsRemaining();
+    return sunkShips === 0;
   };
   return {
     tiles,
