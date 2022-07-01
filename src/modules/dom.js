@@ -31,6 +31,13 @@ const renderShips = (player) => {
   }
 };
 
+const updateShipCount = (player) => {
+  const thisBoard = player.isHuman ? playerBoard : compBoard;
+  const shipCounter = thisBoard.querySelector('.ship-counter');
+  const shipsRemaining = player.board.shipsRemaining();
+  shipCounter.textContent = `Ships remaining: ${shipsRemaining}`;
+};
+
 const updateBoard = (player) => {
   const thisBoard = player.isHuman ? playerBoard : compBoard;
   const { tiles } = player.board;
@@ -50,6 +57,7 @@ const updateBoard = (player) => {
       }
     }
   }
+  updateShipCount(player);
 };
 
 const toggleEvents = () => compBoard.classList.toggle('no-events');

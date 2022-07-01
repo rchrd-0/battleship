@@ -11,6 +11,8 @@ const startGame = () => {
   players.p1 = playerFactory('', 1, true, true);
   players.com = playerFactory('', 2, false, false);
   dom.createBoard(players.p1, players.com);
+  dom.updateBoard(players.p1);
+  dom.updateBoard(players.com);
 };
 
 const playComMove = async () => {
