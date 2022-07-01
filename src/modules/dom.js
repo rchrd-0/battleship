@@ -52,4 +52,6 @@ const updateBoard = (player) => {
   }
 };
 
-export { createBoard, renderShips, updateBoard };
+const toggleEvents = () => compBoard.classList.toggle('no-events');
+
+export { createBoard, renderShips, updateBoard, toggleEvents };

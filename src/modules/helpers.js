@@ -12,6 +12,12 @@ const alreadyPlayed = (player, target) => {
   return false;
 };
 
+const timeout = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+};
+
 const generateRandom = () => {
   const random = [
     Math.floor(Math.random() * 10),
@@ -20,11 +26,12 @@ const generateRandom = () => {
   return random;
 };
 
-const getRandomMove = (player) => {
+const getRandomMove = async (player) => {
   let randomMove = generateRandom();
-  while(alreadyPlayed(player, randomMove)) {
+  while (alreadyPlayed(player, randomMove)) {
     randomMove = generateRandom();
   }
+  await timeout(400);
   return randomMove;
 };
 
