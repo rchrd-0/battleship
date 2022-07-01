@@ -1,6 +1,13 @@
 const playerBoard = document.querySelector('#player-board');
 const compBoard = document.querySelector('#comp-board');
 
+const updateShipCount = (player) => {
+  const thisBoard = player.isHuman ? playerBoard : compBoard;
+  const shipCounter = thisBoard.querySelector('.ship-counter');
+  const shipsRemaining = player.board.shipsRemaining();
+  shipCounter.textContent = `Ships remaining: ${shipsRemaining}`;
+};
+
 const createBoard = (...players) => {
   players.forEach((player) => {
     const thisBoard = player.isHuman ? playerBoard : compBoard;
@@ -14,6 +21,7 @@ const createBoard = (...players) => {
         thisBoard.appendChild(boardCell);
       }
     }
+    updateShipCount(player);
   });
 };
 
@@ -29,13 +37,6 @@ const renderShips = (player) => {
       thisCell.classList.add('ship');
     }
   }
-};
-
-const updateShipCount = (player) => {
-  const thisBoard = player.isHuman ? playerBoard : compBoard;
-  const shipCounter = thisBoard.querySelector('.ship-counter');
-  const shipsRemaining = player.board.shipsRemaining();
-  shipCounter.textContent = `Ships remaining: ${shipsRemaining}`;
 };
 
 const updateBoard = (player) => {
