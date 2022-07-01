@@ -99,3 +99,12 @@ test('check whether all ships are sunk', () => {
   board.receiveAttack([5, 1]);
   expect(board.allShipsSunk()).toBe(true);
 });
+
+test('check number of ships remaining', () => {
+  board.placeShip(2, [1, 0], 'x');
+  board.placeShip(2, [3, 0], 'x');
+  board.receiveAttack([1, 0]);
+  board.receiveAttack([2, 0]);
+  expect(board.shipsRemaining()).toBe(1);
+})
+
