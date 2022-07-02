@@ -37,8 +37,28 @@ html {
 
 } */
 
-#gameboards {
+main {
   padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  flex: 1;
+}
+
+#game-info {
+  width: 300px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  height: 80px;
+}
+
+#gameboards {
   display: flex;
   gap: 10px;
 }
@@ -78,4 +98,8 @@ html {
 
 .board-cell.miss {
   background-color: yellow;
+}
+
+.game-over {
+  filter: opacity(0.8) grayscale(75%);
 }

@@ -10,6 +10,7 @@ const updateShipCount = (player) => {
 
 const createBoard = (...players) => {
   players.forEach((player) => {
+    updateShipCount(player);
     const thisBoard = player.isHuman ? playerBoard : compBoard;
     const { tiles } = player.board;
     for (let i = 0; i < tiles.length; i++) {
@@ -21,7 +22,6 @@ const createBoard = (...players) => {
         thisBoard.appendChild(boardCell);
       }
     }
-    updateShipCount(player);
   });
 };
 
@@ -61,6 +61,21 @@ const updateBoard = (player) => {
   updateShipCount(player);
 };
 
-const toggleEvents = () => compBoard.classList.toggle('no-events');
+const announceGameOver = (winner) => {
+  const gameInfo = document.querySelector('#game-info');
+  [playerBoard, compBoard].forEach((board) => board.classList.add('game-over'));
+  gameInfo.textContent = `${winner} wins!`;
+};
 
-export { createBoard, renderShips, updateBoard, toggleEvents };
+const disableEvents = () => compBoard.classList.add('no-events');
+
+const enableEvents = () => compBoard.classList.remove('no-events');
+
+export {
+  createBoard,
+  renderShips,
+  updateBoard,
+  disableEvents,
+  enableEvents,
+  announceGameOver,
+};

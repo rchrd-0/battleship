@@ -16,7 +16,9 @@ export default function gameBoardFactory() {
   };
   // const misses = [];
   const tiles = createBoard();
+
   const ships = [];
+
   const placeShip = (length, [x, y], axis) => {
     const newShip = shipFactory(ships.length, length);
     ships.push(newShip);
@@ -38,6 +40,7 @@ export default function gameBoardFactory() {
     }
   };
   const hasShip = (tile) => tile.shipId !== null;
+
   const findShip = (id) => {
     let thisShip;
     for (let i = 0; i < ships.length; i++) {
@@ -47,6 +50,7 @@ export default function gameBoardFactory() {
     }
     return thisShip;
   };
+
   const receiveAttack = (target) => {
     const [x, y] = target;
     const thisTile = tiles[x][y];
@@ -67,14 +71,17 @@ export default function gameBoardFactory() {
     }
     thisTile.hit = true;
   };
+
   const shipsRemaining = () => {
     const filterShips = ships.filter((ship) => ship.isSunk() === false);
     return filterShips.length;
   };
+
   const allShipsSunk = () => {
     const sunkShips = shipsRemaining();
     return sunkShips === 0;
   };
+
   return {
     tiles,
     ships,
