@@ -63,19 +63,26 @@ const updateBoard = (player) => {
 
 const announceGameOver = (winner) => {
   const gameInfo = document.querySelector('#game-info');
+  const winMessage =
+    winner.num === 1
+      ? 'Congratulations! You win!'
+      : 'Game over ... Computer wins!';
   [playerBoard, compBoard].forEach((board) => board.classList.add('game-over'));
-  gameInfo.textContent = `${winner} wins!`;
+  gameInfo.textContent = winMessage;
 };
 
-const disableEvents = () => compBoard.classList.add('no-events');
-
-const enableEvents = () => compBoard.classList.remove('no-events');
+const disableEvents = (bool) => {
+  if (bool) {
+    compBoard.classList.add('no-events');
+  } else {
+    compBoard.classList.remove('no-events');
+  }
+};
 
 export {
   createBoard,
   renderShips,
   updateBoard,
   disableEvents,
-  enableEvents,
   announceGameOver,
 };

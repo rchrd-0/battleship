@@ -8,22 +8,22 @@ const players = {
 };
 
 const startGame = () => {
-  players.p1 = playerFactory('', 1, true, true);
-  players.com = playerFactory('', 2, false, false);
+  players.p1 = playerFactory(1, true);
+  players.com = playerFactory(2, false);
 
   players.com.board.placeShip(2, [0, 0], 'x');
   players.p1.board.placeShip(9, [0, 0], 'x');
 
   dom.createBoard(players.p1, players.com);
-
+  dom.disableEvents(false);
   dom.renderShips(players.p1);
 };
 
 const checkGameState = (player) => player.board.allShipsSunk();
 
 const endGame = (winner) => {
-  dom.disableEvents();
-  dom.announceGameOver(winner.name);
+  dom.disableEvents(true);
+  dom.announceGameOver(winner);
 };
 
 const playComMove = async () => {
@@ -36,7 +36,7 @@ const playComMove = async () => {
   if (winState) {
     endGame(com);
   } else {
-    dom.enableEvents();
+    dom.disableEvents(false);
   }
 };
 
@@ -52,7 +52,7 @@ const receiveMove = (coord) => {
   } else {
     playComMove(p1, com);
   }
-  dom.disableEvents();
+  dom.disableEvents(true);
 };
 
 export { startGame, receiveMove };
