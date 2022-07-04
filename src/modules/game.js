@@ -14,7 +14,9 @@ const startGame = () => {
   players.com.board.placeShip(2, [0, 0], 'x');
   players.p1.board.placeShip(9, [0, 0], 'x');
 
-  dom.createBoard(players.p1, players.com);
+  dom.updateBoard(players.p1)
+  dom.updateBoard(players.com)
+
   dom.disableEvents(false);
   dom.renderShips(players.p1);
 };

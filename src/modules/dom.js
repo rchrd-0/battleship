@@ -8,22 +8,36 @@ const updateShipCount = (player) => {
   shipCounter.textContent = `Ships remaining: ${shipsRemaining}`;
 };
 
-const createBoard = (...players) => {
-  players.forEach((player) => {
-    updateShipCount(player);
-    const thisBoard = player.isHuman ? playerBoard : compBoard;
-    const { tiles } = player.board;
-    for (let i = 0; i < tiles.length; i++) {
-      for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
+const createBoards = () => {
+  [playerBoard, compBoard].forEach((board) => {
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
         const boardCell = document.createElement('div');
         boardCell.classList.add('board-cell');
         boardCell.dataset.x = j;
         boardCell.dataset.y = i;
-        thisBoard.appendChild(boardCell);
+        board.appendChild(boardCell);
       }
-    }
+    } 
   });
 };
+
+// const createBoard = (...players) => {
+//   players.forEach((player) => {
+//     updateShipCount(player);
+//     const thisBoard = player.isHuman ? playerBoard : compBoard;
+//     const { tiles } = player.board;
+//     for (let i = 0; i < tiles.length; i++) {
+//       for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
+//         const boardCell = document.createElement('div');
+//         boardCell.classList.add('board-cell');
+//         boardCell.dataset.x = j;
+//         boardCell.dataset.y = i;
+//         thisBoard.appendChild(boardCell);
+//       }
+//     }
+//   });
+// };
 
 const renderShips = (player) => {
   const { ships } = player.board;
@@ -80,7 +94,7 @@ const disableEvents = (bool) => {
 };
 
 export {
-  createBoard,
+  createBoards,
   renderShips,
   updateBoard,
   disableEvents,
