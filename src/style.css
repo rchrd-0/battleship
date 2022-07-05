@@ -58,14 +58,14 @@ header {
   height: 80px;
 }
 
-#gameboards {
+#game {
   display: flex;
   gap: 10px;
 }
 
 .board {
   display: grid;
-  grid-template-rows: fit-content repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
   grid-gap: 1px;
 }
@@ -98,6 +98,14 @@ header {
 
 .board-cell.miss {
   background-color: yellow;
+}
+
+.board-cell.ship-preview {
+  background-color: green;
+}
+
+.board-cell.invalid {
+  background-color: crimson;
 }
 
 .game-over {

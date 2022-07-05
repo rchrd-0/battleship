@@ -1,4 +1,4 @@
-import playerFactory from './player-factory';
+import playerFactory from './playerFactory';
 import * as dom from './dom';
 import * as helpers from './helpers';
 
@@ -7,16 +7,31 @@ const players = {
   com: null,
 };
 
-const startGame = () => {
+const newGame = () => {
+  // Clean up board
+  dom.clearUI();
+  // Create new player objects
   players.p1 = playerFactory(1, true);
   players.com = playerFactory(2, false);
+  // Disable computer events
+  dom.disableEvents(true);
+  // Enable player events
+  dom.disableEvents(false, 'player');
+  // Start ship placement
+  
+  // Enable start game button
+  
+}
+
+const startGame = () => {
+  // players.p1 = playerFactory(1, true);
+  // players.com = playerFactory(2, false);
 
   players.com.board.placeShip(2, [0, 0], 'x');
   players.p1.board.placeShip(9, [0, 0], 'x');
 
   dom.updateBoard(players.p1)
   dom.updateBoard(players.com)
-
   dom.disableEvents(false);
   dom.renderShips(players.p1);
 };
@@ -31,6 +46,7 @@ const endGame = (winner) => {
 const playComMove = async () => {
   const { p1, com } = players;
   const randomMove = await helpers.getRandomMove(com);
+  
   com.makeMove(randomMove, p1.board);
   dom.updateBoard(p1);
 
@@ -57,4 +73,4 @@ const receiveMove = (coord) => {
   dom.disableEvents(true);
 };
 
-export { startGame, receiveMove };
+export { players, newGame, startGame, receiveMove };
