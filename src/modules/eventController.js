@@ -24,6 +24,7 @@ const initShipPlacement = () => {
   // mouseout => clearPreview
   // click => placeShip -- valid??
   playerBoard.addEventListener('mouseover', shipPlacement.previewShip);
+  playerBoard.addEventListener('mouseout', shipPlacement.clearPreview);
 };
 
 export { initBoardEvents, initGameButtons, initShipPlacement };

@@ -40,4 +40,10 @@ const previewShip = (e, orientation = 'y', length = 5) => {
     shipCoords.forEach((cell) => cell.classList.add('invalid'));
   }
 };
-export { previewShip };
+
+const clearPreview = () => {
+  const cells = board.querySelectorAll('.board-cell');
+  cells.forEach(cell => cell.classList.remove('ship-preview', 'invalid'));
+}
+
+export { previewShip, clearPreview };
