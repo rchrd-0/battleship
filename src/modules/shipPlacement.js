@@ -1,17 +1,32 @@
 const board = document.querySelector('#player-board');
 
+const axes = {
+  x: true,
+  y: false,
+  getAxis() {
+    const keys = Object.keys(this);
+    return keys.filter((key) => this[key] === true)[0];
+  },
+};
+
+const switchAxis = () => {
+  axes.x = !axes.x;
+  axes.y = !axes.x;
+};
+
 const isWithinBounds = (cells, length) => {
   return cells.length === length;
 };
 
-const previewShip = (e, orientation = 'y', length = 5) => {
+const previewShip = (e, length = 5) => {
   if (e.target.classList.contains('board')) return;
 
   const { target } = e;
   const [x, y] = [Number(target.dataset.x), Number(target.dataset.y)];
   const shipCoords = [];
+  const axis = axes.getAxis();
 
-  if (orientation === 'x') {
+  if (axis === 'x') {
     for (let i = 0; i < length; i++) {
       // >9 = out of bounds
       if (i + x > 9) break;
@@ -22,7 +37,7 @@ const previewShip = (e, orientation = 'y', length = 5) => {
       shipCoords.push(nextCell);
     }
   }
-  if (orientation === 'y') {
+  if (axis === 'y') {
     for (let i = 0; i < length; i++) {
       // >9 = out of bounds
       if (i + y > 9) break;
@@ -43,7 +58,7 @@ const previewShip = (e, orientation = 'y', length = 5) => {
 
 const clearPreview = () => {
   const cells = board.querySelectorAll('.board-cell');
-  cells.forEach(cell => cell.classList.remove('ship-preview', 'invalid'));
-}
+  cells.forEach((cell) => cell.classList.remove('ship-preview', 'invalid'));
+};
 
-export { previewShip, clearPreview };
+export { switchAxis, previewShip, clearPreview };

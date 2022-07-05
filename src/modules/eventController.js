@@ -15,6 +15,8 @@ const initBoardEvents = () => {
 const initGameButtons = () => {
   // const restartBtn = document.querySelector('#restart-btn');
   // restartBtn.addEventListener('click', game.newGame);
+  const rotateBtn = document.querySelector('#rotate-ship');
+  rotateBtn.addEventListener('click', shipPlacement.switchAxis)
 };
 
 const initShipPlacement = () => {
