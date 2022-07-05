@@ -1,7 +1,7 @@
-import gameBoardFactory from './gameboard-factory';
+import gameboardFactory from './gameboardFactory';
 
 export default function playerFactory(num, human) {
-  const gameBoard = gameBoardFactory();
+  const gameboard = gameboardFactory();
   const moves = [];
   const makeMove = (target, enemyBoard) => {
     enemyBoard.receiveAttack(target);
@@ -13,7 +13,7 @@ export default function playerFactory(num, human) {
       return num;
     },
     get board() {
-      return gameBoard;
+      return gameboard;
     },
     get isHuman() {
       return human;

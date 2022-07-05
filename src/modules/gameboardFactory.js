@@ -1,18 +1,18 @@
-import shipFactory from './ship-factory';
+import shipFactory from './shipFactory';
 
-export default function gameBoardFactory() {
+export default function gameboardFactory() {
   const createBoard = () => {
-    const gameBoard = new Array(10);
+    const gameboard = new Array(10);
     for (let i = 0; i < 10; i++) {
-      gameBoard[i] = {};
+      gameboard[i] = {};
       for (let j = 0; j < 10; j++) {
-        gameBoard[i][j] = {
+        gameboard[i][j] = {
           hit: false,
           shipId: null,
         };
       }
     }
-    return gameBoard;
+    return gameboard;
   };
   // const misses = [];
   const tiles = createBoard();

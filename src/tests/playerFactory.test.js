@@ -1,4 +1,4 @@
-import playerFactory from '../modules/player-factory';
+import playerFactory from '../modules/playerFactory';
 
 let enemy;
 beforeEach(() => {

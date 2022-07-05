@@ -1,8 +1,8 @@
-import gameBoardFactory from '../modules/gameboard-factory';
+import gameboardFactory from '../modules/gameboardFactory';
 
 let board;
 beforeEach(() => {
-  board = gameBoardFactory();
+  board = gameboardFactory();
 });
 
 test('place ship; vertical y', () => {

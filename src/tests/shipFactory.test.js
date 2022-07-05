@@ -1,4 +1,4 @@
-import shipFactory from '../modules/ship-factory';
+import shipFactory from '../modules/shipFactory';
 
 let ship;
 beforeEach(() => {
