@@ -1,12 +1,15 @@
+import * as helpers from './helpers';
+
 const board = document.querySelector('#player-board');
 
 const axes = {
   x: true,
   y: false,
-  getAxis() {
-    const keys = Object.keys(this);
-    return keys.filter((key) => this[key] === true)[0];
-  },
+};
+
+const getAxis = () => {
+  const keys = Object.keys(axes);
+  return keys.filter((key) => axes[key] === true)[0];
 };
 
 const switchAxis = () => {
@@ -18,13 +21,12 @@ const isWithinBounds = (cells, length) => {
   return cells.length === length;
 };
 
-const previewShip = (e, length = 5) => {
-  if (e.target.classList.contains('board')) return;
+const previewShip = (e, length) => {
+  if (e.target.classList.contains('board') || length === null) return;
 
-  const { target } = e;
-  const [x, y] = [Number(target.dataset.x), Number(target.dataset.y)];
+  const [x, y] = helpers.getCellInfo(e.target);
   const shipCoords = [];
-  const axis = axes.getAxis();
+  const axis = getAxis();
 
   if (axis === 'x') {
     for (let i = 0; i < length; i++) {
@@ -61,4 +63,4 @@ const clearPreview = () => {
   cells.forEach((cell) => cell.classList.remove('ship-preview', 'invalid'));
 };
 
-export { switchAxis, previewShip, clearPreview };
+export { isWithinBounds, getAxis, switchAxis, previewShip, clearPreview };

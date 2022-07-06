@@ -7,7 +7,7 @@ const initBoardEvents = () => {
   compCells.forEach((cell) => {
     cell.addEventListener('click', (e) => {
       const coord = helpers.getCellInfo(e.target);
-      game.receiveMove(coord);
+      game.receivePlayerMove(coord);
     });
   });
 };
@@ -21,12 +21,12 @@ const initGameButtons = () => {
 
 const initShipPlacement = () => {
   const playerBoard = document.querySelector('#player-board');
-
-  // mouseover => renderPreview
-  // mouseout => clearPreview
-  // click => placeShip -- valid??
-  playerBoard.addEventListener('mouseover', shipPlacement.previewShip);
+  playerBoard.addEventListener('mouseover', ((e) => {
+    const nextShip = game.getNextShip();
+    shipPlacement.previewShip(e, nextShip);
+  }))
   playerBoard.addEventListener('mouseout', shipPlacement.clearPreview);
+  playerBoard.addEventListener('click', game.placeShip)
 };
 
 export { initBoardEvents, initGameButtons, initShipPlacement };

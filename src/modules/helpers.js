@@ -1,5 +1,5 @@
-const getCellInfo = (targetCell) => {
-  return [Number(targetCell.dataset.x), Number(targetCell.dataset.y)];
+const getCellInfo = (target) => {
+  return [Number(target.dataset.x), Number(target.dataset.y)];
 };
 
 const alreadyPlayed = (player, target) => {
@@ -46,4 +46,21 @@ const getRandomMove = async (player) => {
 //   }
 // };
 
-export { getCellInfo, alreadyPlayed, getRandomMove };
+const nextShipLength = (numShipsPlaced) => {
+  switch (numShipsPlaced) {
+    case 0:
+      return 5;
+    case 1:
+      return 4;
+    case 2:
+      return 3;
+    case 3:
+      return 3;
+    case 4:
+      return 2;
+    default:
+      return null;
+  }
+};
+
+export { getCellInfo, alreadyPlayed, getRandomMove, nextShipLength };
