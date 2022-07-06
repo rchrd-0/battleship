@@ -17,8 +17,10 @@ const switchAxis = () => {
   axes.y = !axes.x;
 };
 
-const isWithinBounds = (cells, length) => {
-  return cells.length === length;
+const isValid = (coords, length) => {
+  const isWithinBounds = coords.length === length;
+  const noOverlap = coords.every((coord) => !coord.classList.contains('ship'));
+  return isWithinBounds && noOverlap;
 };
 
 const previewShip = (e, length) => {
@@ -51,7 +53,7 @@ const previewShip = (e, length) => {
     }
   }
 
-  if (isWithinBounds(shipCoords, length)) {
+  if (isValid(shipCoords, length)) {
     shipCoords.forEach((cell) => cell.classList.add('ship-preview'));
   } else {
     shipCoords.forEach((cell) => cell.classList.add('invalid'));
@@ -63,4 +65,6 @@ const clearPreview = () => {
   cells.forEach((cell) => cell.classList.remove('ship-preview', 'invalid'));
 };
 
-export { isWithinBounds, getAxis, switchAxis, previewShip, clearPreview };
+const getPreview = () => [...board.querySelectorAll('.ship-preview')];
+
+export { isValid, getAxis, switchAxis, previewShip, clearPreview, getPreview };

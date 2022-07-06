@@ -82,12 +82,17 @@ const placeShip = (e) => {
   const { p1 } = players;
   if (p1.board.ships.length === null) return;
 
-  const target = helpers.getCellInfo(e.target);
+  const startIndex = helpers.getCellInfo(e.target);
+  const allNodes = shipPlacement.getPreview();
   const length = getNextShip();
   const axis = shipPlacement.getAxis();
 
-  p1.board.placeShip(length, target, axis);
-  dom.renderShips(p1);
+  if (shipPlacement.isValid(allNodes, length)) {
+    p1.board.placeShip(length, startIndex, axis);
+    shipPlacement.clearPreview();
+    dom.renderShips(p1);
+    dom.updateShipCount(p1);
+  }
 };
 
 export { newGame, startGame, receivePlayerMove, placeShip, getNextShip };
