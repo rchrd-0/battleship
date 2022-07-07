@@ -18,34 +18,6 @@ const timeout = (ms) => {
   });
 };
 
-// const generateRandom = () => {
-//   const random = [
-//     Math.floor(Math.random() * 10),
-//     Math.floor(Math.random() * 10),
-//   ];
-//   return random;
-// };
-
-// const getRandomMove = async (player) => {
-//   let randomMove = generateRandom();
-//   while (alreadyPlayed(player, randomMove)) {
-//     randomMove = generateRandom();
-//   }
-//   await timeout(400);
-//   return randomMove;
-// };
-
-// const getTurn = (obj) => {
-//   const keys = Object.keys(obj);
-
-//   for (let i = 0; i < keys.length; i++) {
-//     const player = obj[keys[i]];
-//     if (player.turn === false) {
-//       return player
-//     }
-//   }
-// };
-
 const nextShipLength = (numShipsPlaced) => {
   switch (numShipsPlaced) {
     case 0:

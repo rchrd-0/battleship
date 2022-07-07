@@ -17,4 +17,8 @@ const getRandomMove = async (player) => {
   return randomMove;
 };
 
+const placeShips = () => {
+  
+}
+
 export { getRandomMove };

@@ -19,7 +19,7 @@ const newGame = () => {
   dom.toggleBtns('start', true);
   dom.toggleBtns('restart', false);
   dom.disableEvents(true, 'comp');
-  dom.disableEvents(false, 'player')
+  dom.disableEvents(false, 'player');
 };
 
 const startGame = () => {
@@ -35,7 +35,7 @@ const endGame = (winner) => {
   dom.disableEvents(true, 'comp');
   dom.toggleBtns('restart', true);
   dom.announceGameOver(winner);
-}
+};
 
 const playComMove = async () => {
   const { p1, com } = players;
@@ -74,7 +74,9 @@ const getNextShip = () => {
 
 const placeShip = (e) => {
   const { p1 } = players;
-  if (p1.board.ships.length === null) return;
+  if (e.target.classList.contains('board') || p1.board.ships.length === null) {
+    return;
+  }
 
   const startIndex = helpers.getCellInfo(e.target);
   const allNodes = shipPlacement.getPreview();
