@@ -13,8 +13,10 @@ const initBoardEvents = () => {
 };
 
 const initGameButtons = () => {
-  // const restartBtn = document.querySelector('#restart-btn');
-  // restartBtn.addEventListener('click', game.newGame);
+  const restartBtn = document.querySelector('#restart-btn');
+  restartBtn.addEventListener('click', game.newGame);
+  const startBtn = document.querySelector('#start-btn');
+  startBtn.addEventListener('click', game.startGame);
   const rotateBtn = document.querySelector('#rotate-ship');
   rotateBtn.addEventListener('click', shipPlacement.switchAxis)
 };

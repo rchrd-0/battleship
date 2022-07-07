@@ -18,22 +18,22 @@ const timeout = (ms) => {
   });
 };
 
-const generateRandom = () => {
-  const random = [
-    Math.floor(Math.random() * 10),
-    Math.floor(Math.random() * 10),
-  ];
-  return random;
-};
+// const generateRandom = () => {
+//   const random = [
+//     Math.floor(Math.random() * 10),
+//     Math.floor(Math.random() * 10),
+//   ];
+//   return random;
+// };
 
-const getRandomMove = async (player) => {
-  let randomMove = generateRandom();
-  while (alreadyPlayed(player, randomMove)) {
-    randomMove = generateRandom();
-  }
-  await timeout(400);
-  return randomMove;
-};
+// const getRandomMove = async (player) => {
+//   let randomMove = generateRandom();
+//   while (alreadyPlayed(player, randomMove)) {
+//     randomMove = generateRandom();
+//   }
+//   await timeout(400);
+//   return randomMove;
+// };
 
 // const getTurn = (obj) => {
 //   const keys = Object.keys(obj);
@@ -63,4 +63,4 @@ const nextShipLength = (numShipsPlaced) => {
   }
 };
 
-export { getCellInfo, alreadyPlayed, getRandomMove, nextShipLength };
+export { getCellInfo, alreadyPlayed, timeout, nextShipLength };

@@ -2,6 +2,7 @@ import playerFactory from './playerFactory';
 import * as dom from './dom';
 import * as helpers from './helpers';
 import * as shipPlacement from './shipPlacement';
+import * as botLogic from './botLogic';
 
 const players = {
   p1: null,
@@ -11,41 +12,34 @@ const players = {
 const checkGameState = (player) => player.board.allShipsSunk();
 
 const newGame = () => {
-  // Clean up board
-  dom.clearUI();
-  // Create new player objects
   players.p1 = playerFactory(1, true);
   players.com = playerFactory(2, false);
-  // Disable computer events
-  dom.disableEvents(true);
-  // Enable player events
-  dom.disableEvents(false, 'player');
-  // Start ship placement
 
-  // Enable start game button
+  dom.clearUI(players.p1, players.com);
+  dom.toggleBtns('start', true);
+  dom.toggleBtns('restart', false);
+  dom.disableEvents(true, 'comp');
+  dom.disableEvents(false, 'player')
 };
 
 const startGame = () => {
-  // players.p1 = playerFactory(1, true);
-  // players.com = playerFactory(2, false);
-
   players.com.board.placeShip(2, [0, 0], 'x');
-  players.p1.board.placeShip(9, [0, 0], 'x');
 
-  dom.updateBoard(players.p1);
+  dom.toggleBtns('start', true);
   dom.updateBoard(players.com);
-  dom.disableEvents(false);
-  dom.renderShips(players.p1);
+  dom.disableEvents(true, 'player');
+  dom.disableEvents(false, 'comp');
 };
 
 const endGame = (winner) => {
-  dom.disableEvents(true);
+  dom.disableEvents(true, 'comp');
+  dom.toggleBtns('restart', true);
   dom.announceGameOver(winner);
-};
+}
 
 const playComMove = async () => {
   const { p1, com } = players;
-  const randomMove = await helpers.getRandomMove(com);
+  const randomMove = await botLogic.getRandomMove(com);
 
   com.makeMove(randomMove, p1.board);
   dom.updateBoard(p1);
@@ -54,7 +48,7 @@ const playComMove = async () => {
   if (winState) {
     endGame(com);
   } else {
-    dom.disableEvents(false);
+    dom.disableEvents(false, 'comp');
   }
 };
 
@@ -70,7 +64,7 @@ const receivePlayerMove = (coord) => {
   } else {
     playComMove(p1, com);
   }
-  dom.disableEvents(true);
+  dom.disableEvents(true, 'comp');
 };
 
 const getNextShip = () => {
@@ -91,7 +85,10 @@ const placeShip = (e) => {
     p1.board.placeShip(length, startIndex, axis);
     shipPlacement.clearPreview();
     dom.renderShips(p1);
-    dom.updateShipCount(p1);
+
+    if (p1.board.ships.length === 5) {
+      dom.toggleBtns('start', false);
+    }
   }
 };
 

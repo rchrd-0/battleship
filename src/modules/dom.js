@@ -26,23 +26,6 @@ const createBoards = () => {
   });
 };
 
-// const createBoard = (...players) => {
-//   players.forEach((player) => {
-//     updateShipCount(player);
-//     const thisBoard = player.isHuman ? playerBoard : compBoard;
-//     const { tiles } = player.board;
-//     for (let i = 0; i < tiles.length; i++) {
-//       for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
-//         const boardCell = document.createElement('div');
-//         boardCell.classList.add('board-cell');
-//         boardCell.dataset.x = j;
-//         boardCell.dataset.y = i;
-//         thisBoard.appendChild(boardCell);
-//       }
-//     }
-//   });
-// };
-
 const renderShips = (player) => {
   const { ships } = player.board;
   const coords = ships.map((ship) => ship.coords);
@@ -56,6 +39,7 @@ const renderShips = (player) => {
       thisCell.classList.add('ship');
     }
   }
+  updateShipCount(player);
 };
 
 const updateBoard = (player) => {
@@ -81,14 +65,23 @@ const updateBoard = (player) => {
   updateShipCount(player);
 };
 
-const clearUI = () => {
+const styleGameOver = (bool) => {
+  if (bool) {
+    gameboards.forEach((board) => board.classList.add('game-over'));
+  } else {
+    gameboards.forEach((board) => board.classList.remove('game-over'));
+  }
+};
+
+const clearUI = (...players) => {
   gameboards.forEach((board) => {
     const cells = board.querySelectorAll('.board-cell');
     cells.forEach((cell) => {
       cell.classList.remove('miss', 'hit', 'ship');
     });
   });
-  // game over reset
+  players.forEach((player) => updateShipCount(player));
+  styleGameOver(false);
 };
 
 const announceGameOver = (winner) => {
@@ -97,16 +90,37 @@ const announceGameOver = (winner) => {
       ? 'Congratulations! You win!'
       : 'Game over ... Computer wins!';
 
-  gameboards.forEach((board) => board.classList.add('game-over'));
   gameInfo.textContent = winMessage;
+  styleGameOver(true);
 };
 
-const disableEvents = (bool, board = 'comp') => {
-  const thisBoard = (board === 'comp') ? compBoard : playerBoard
+const disableEvents = (bool, board) => {
+  const thisBoard = board === 'comp' ? compBoard : playerBoard;
   if (bool) {
     thisBoard.classList.add('no-events');
   } else {
     thisBoard.classList.remove('no-events');
+  }
+};
+
+const toggleBtns = (button, state) => {
+  const startBtn = document.querySelector('#start-btn');
+  const restartBtn = document.querySelector('#restart-btn');
+
+  if (button === 'start') {
+    if (state) {
+      startBtn.setAttribute('disabled', '');
+    } else {
+      startBtn.removeAttribute('disabled');
+    }
+  }
+
+  if (button === 'restart') {
+    if (state) {
+      restartBtn.textContent = 'New game';
+    } else {
+      restartBtn.textContent = 'Restart';
+    }
   }
 };
 
@@ -115,7 +129,7 @@ export {
   clearUI,
   renderShips,
   updateBoard,
-  updateShipCount,
   disableEvents,
   announceGameOver,
+  toggleBtns,
 };
