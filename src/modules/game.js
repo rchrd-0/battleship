@@ -23,12 +23,14 @@ const newGame = () => {
 };
 
 const startGame = () => {
-  players.com.board.placeShip(2, [0, 0], 'x');
-
+  botLogic.placeShips(players.com);
   dom.toggleBtns('start', true);
   dom.updateBoard(players.com);
   dom.disableEvents(true, 'player');
   dom.disableEvents(false, 'comp');
+
+  // Remove
+  dom.renderShips(players.com);
 };
 
 const endGame = (winner) => {
@@ -94,4 +96,11 @@ const placeShip = (e) => {
   }
 };
 
-export { newGame, startGame, receivePlayerMove, placeShip, getNextShip };
+export {
+  newGame,
+  startGame,
+  receivePlayerMove,
+  placeShip,
+  getNextShip,
+  players,
+};

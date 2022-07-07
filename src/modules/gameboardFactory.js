@@ -39,7 +39,10 @@ export default function gameboardFactory() {
       }
     }
   };
-  const hasShip = (tile) => tile.shipId !== null;
+
+  // const hasShip = (tile) => tile.shipId !== null;
+
+  const hasShip = (x, y) => tiles[x][y].shipId !== null;
 
   const findShip = (id) => {
     let thisShip;
@@ -59,7 +62,7 @@ export default function gameboardFactory() {
     // if (!hasShip(thisTile)) {
     //   misses.push(target);
     // }
-    if (hasShip(thisTile)) {
+    if (hasShip(x, y)) {
       const thisShip = findShip(thisTile.shipId);
       for (let i = 0; i < thisShip.coords.length; i++) {
         if (
@@ -86,6 +89,7 @@ export default function gameboardFactory() {
     tiles,
     ships,
     placeShip,
+    hasShip,
     receiveAttack,
     shipsRemaining,
     allShipsSunk,

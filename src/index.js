@@ -1,7 +1,7 @@
 import './style.css';
-import * as game from './modules/game'
+import * as game from './modules/game';
 import * as dom from './modules/dom';
-import * as eventController from './modules/eventController'
+import * as eventController from './modules/eventController';
 
 dom.createBoards();
 game.newGame();

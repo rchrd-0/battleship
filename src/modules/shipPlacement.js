@@ -1,6 +1,6 @@
 import * as helpers from './helpers';
 
-const board = document.querySelector('#player-board');
+const playerBoard = document.querySelector('#player-board');
 
 const axes = {
   x: true,
@@ -23,24 +23,21 @@ const isValid = (coords, length) => {
   return isWithinBounds && noOverlap;
 };
 
-const previewShip = (e, length) => {
-  if (e.target.classList.contains('board') || length === null) return;
-
-  const [x, y] = helpers.getCellInfo(e.target);
+const fillCoords = (start, length, axis, board) => {
+  const [x, y] = start;
   const shipCoords = [];
-  const axis = getAxis();
 
   if (axis === 'x') {
     for (let i = 0; i < length; i++) {
       // >9 = out of bounds
       if (i + x > 9) break;
-
       const nextCell = board.querySelector(
         `[data-x='${i + x}'][data-y='${y}']`
-      );
+      )
       shipCoords.push(nextCell);
     }
   }
+
   if (axis === 'y') {
     for (let i = 0; i < length; i++) {
       // >9 = out of bounds
@@ -53,7 +50,18 @@ const previewShip = (e, length) => {
     }
   }
 
-  if (isValid(shipCoords, length)) {
+  return shipCoords;
+}
+
+const previewShip = (e, length) => {
+  if (e.target.classList.contains('board') || length === null) return;
+
+  const startingIndex = helpers.getCellInfo(e.target);
+  const axis = getAxis();
+  const shipCoords = fillCoords(startingIndex, length, axis, playerBoard);
+  const valid = isValid(shipCoords, length);
+
+  if (valid) {
     shipCoords.forEach((cell) => cell.classList.add('ship-preview'));
   } else {
     shipCoords.forEach((cell) => cell.classList.add('invalid'));
@@ -61,10 +69,10 @@ const previewShip = (e, length) => {
 };
 
 const clearPreview = () => {
-  const cells = board.querySelectorAll('.board-cell');
+  const cells = playerBoard.querySelectorAll('.board-cell');
   cells.forEach((cell) => cell.classList.remove('ship-preview', 'invalid'));
 };
 
-const getPreview = () => [...board.querySelectorAll('.ship-preview')];
+const getPreview = () => [...playerBoard.querySelectorAll('.ship-preview')];
 
 export { isValid, getAxis, switchAxis, previewShip, clearPreview, getPreview };
