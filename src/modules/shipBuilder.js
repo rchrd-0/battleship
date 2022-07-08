@@ -63,6 +63,18 @@ const noOverlap = (ship, player) => {
   return true;
 };
 
+const isShipValid = (player, start, axis, length) => {
+  const shipFits = doesShipFit(length, axis, start);
+
+  if (shipFits) {
+    const ship = buildShip(start, axis, length);
+    if (noOverlap(ship, player)) {
+      return true;
+    }
+  }
+  return false;
+};
+
 /* Previewing ship placement on DOM */
 const isPreviewValid = (coords, length) => {
   const isWithinBounds = coords.length === length;
@@ -134,4 +146,5 @@ export {
   previewShip,
   clearPreview,
   getPreview,
+  isShipValid,
 };

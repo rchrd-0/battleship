@@ -73,16 +73,16 @@ const getNextShip = () => {
 
 const placeShip = (e) => {
   const { p1 } = players;
-  if (e.target.classList.contains('board') || p1.board.ships.length === null) {
+  if (e.target.classList.contains('board') || p1.board.ships.length >= 5) {
     return;
   }
 
   const startIndex = helpers.getCellInfo(e.target);
-  const allNodes = shipBuilder.getPreview();
   const length = getNextShip();
   const axis = shipBuilder.getAxis();
+  const shipValid = shipBuilder.isShipValid(p1, startIndex, axis, length);
 
-  if (shipBuilder.isPreviewValid(allNodes, length)) {
+  if (shipValid) {
     p1.board.placeShip(length, startIndex, axis);
     shipBuilder.clearPreview();
     dom.renderShips(p1);
