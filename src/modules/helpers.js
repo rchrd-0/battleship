@@ -18,6 +18,36 @@ const timeout = (ms) => {
   });
 };
 
+const getRandomTile = () => {
+  const random = [
+    Math.floor(Math.random() * 10),
+    Math.floor(Math.random() * 10),
+  ];
+  return random;
+};
+
+const getEmptyTiles = (player) => {
+  const { board } = player;
+  const { tiles } = board;
+  const emptyTiles = [];
+  for (let i = 0; i < tiles.length; i++) {
+    for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
+      const hasShip = board.hasShip(i, j);
+      if (!hasShip) {
+        const coord = [i, j];
+        emptyTiles.push(coord);
+      }
+    }
+  }
+  return emptyTiles;
+};
+
+const getRandomEmpty = (player) => {
+  const emptyTiles = getEmptyTiles(player);
+
+  return emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
+};
+
 const nextShipLength = (numShipsPlaced) => {
   switch (numShipsPlaced) {
     case 0:
@@ -35,4 +65,15 @@ const nextShipLength = (numShipsPlaced) => {
   }
 };
 
-export { getCellInfo, alreadyPlayed, timeout, nextShipLength };
+const getRandomAxis = () => ['x', 'y'][Math.floor(Math.random() * 2)];
+
+export {
+  getCellInfo,
+  alreadyPlayed,
+  timeout,
+  getRandomTile,
+  getEmptyTiles,
+  getRandomEmpty,
+  nextShipLength,
+  getRandomAxis,
+};

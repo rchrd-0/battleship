@@ -1,7 +1,7 @@
 import playerFactory from './playerFactory';
 import * as dom from './dom';
 import * as helpers from './helpers';
-import * as shipPlacement from './shipPlacement';
+import * as shipBuilder from './shipBuilder';
 import * as botLogic from './botLogic';
 
 const players = {
@@ -23,14 +23,11 @@ const newGame = () => {
 };
 
 const startGame = () => {
-  botLogic.placeShips(players.com);
+  botLogic.autoPlace(players.com);
   dom.toggleBtns('start', true);
   dom.updateBoard(players.com);
   dom.disableEvents(true, 'player');
   dom.disableEvents(false, 'comp');
-
-  // Remove
-  dom.renderShips(players.com);
 };
 
 const endGame = (winner) => {
@@ -41,9 +38,9 @@ const endGame = (winner) => {
 
 const playComMove = async () => {
   const { p1, com } = players;
-  const randomMove = await botLogic.getRandomMove(com);
+  const comAttack = await botLogic.autoAttack(com);
 
-  com.makeMove(randomMove, p1.board);
+  com.makeMove(comAttack, p1.board);
   dom.updateBoard(p1);
 
   const winState = checkGameState(p1);
@@ -81,13 +78,13 @@ const placeShip = (e) => {
   }
 
   const startIndex = helpers.getCellInfo(e.target);
-  const allNodes = shipPlacement.getPreview();
+  const allNodes = shipBuilder.getPreview();
   const length = getNextShip();
-  const axis = shipPlacement.getAxis();
+  const axis = shipBuilder.getAxis();
 
-  if (shipPlacement.isValid(allNodes, length)) {
+  if (shipBuilder.isPreviewValid(allNodes, length)) {
     p1.board.placeShip(length, startIndex, axis);
-    shipPlacement.clearPreview();
+    shipBuilder.clearPreview();
     dom.renderShips(p1);
 
     if (p1.board.ships.length === 5) {

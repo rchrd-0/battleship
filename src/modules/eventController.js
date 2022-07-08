@@ -1,6 +1,6 @@
 import * as game from './game';
 import * as helpers from './helpers';
-import * as shipPlacement from './shipPlacement';
+import * as shipBuilder from './shipBuilder';
 
 const initBoardEvents = () => {
   const compCells = document.querySelectorAll('#comp-board .board-cell');
@@ -18,16 +18,16 @@ const initGameButtons = () => {
   const startBtn = document.querySelector('#start-btn');
   startBtn.addEventListener('click', game.startGame);
   const rotateBtn = document.querySelector('#rotate-ship');
-  rotateBtn.addEventListener('click', shipPlacement.switchAxis);
+  rotateBtn.addEventListener('click', shipBuilder.switchAxis);
 };
 
 const initShipPlacement = () => {
   const playerBoard = document.querySelector('#player-board');
   playerBoard.addEventListener('mouseover', (e) => {
     const nextShip = game.getNextShip();
-    shipPlacement.previewShip(e, nextShip);
+    shipBuilder.previewShip(e, nextShip);
   });
-  playerBoard.addEventListener('mouseout', shipPlacement.clearPreview);
+  playerBoard.addEventListener('mouseout', shipBuilder.clearPreview);
   playerBoard.addEventListener('click', game.placeShip);
 };
 
