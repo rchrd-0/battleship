@@ -1,116 +1,57 @@
 import * as helpers from './helpers';
+import * as shipBuilder from './shipBuilder';
 
-const getRandomTile = () => {
-  const random = [
-    Math.floor(Math.random() * 10),
-    Math.floor(Math.random() * 10),
-  ];
-  return random;
-};
-
-const getRandomMove = async (comp) => {
-  let randomMove = getRandomTile();
-  while (helpers.alreadyPlayed(comp, randomMove)) {
-    randomMove = getRandomTile();
+// Random move (attack)
+const autoAttack = async (player) => {
+  let randomMove = helpers.getRandomTile();
+  while (helpers.alreadyPlayed(player, randomMove)) {
+    randomMove = helpers.getRandomTile();
   }
   await helpers.timeout(400);
   return randomMove;
 };
 
-const getEmptyTiles = (comp) => {
-  const { board } = comp;
-  const { tiles } = board;
-  const emptyTiles = [];
-  for (let i = 0; i < tiles.length; i++) {
-    for (let j = 0; j < Object.keys(tiles[i]).length; j++) {
-      const hasShip = board.hasShip(i, j);
-      if (!hasShip) {
-        const coord = [i, j];
-        emptyTiles.push(coord);
-      }
-    }
+/* Random ship placement */
+/* Returns a random startingIndex & axis (to place a ship) that will fit within 
+  10x10 board */
+const getValidStart = (player, length) => {
+  let startIndex;
+  let axis;
+  let shipFits = false;
+  while (!shipFits) {
+    const randomIndex = helpers.getRandomEmpty(player);
+    const randomAxis = helpers.getRandomAxis();
+    shipFits = shipBuilder.doesShipFit(length, randomAxis, randomIndex);
+    startIndex = randomIndex;
+    axis = randomAxis;
   }
-  return emptyTiles;
+  return [startIndex, axis];
 };
 
-const buildShip = (start, axis, length) => {
-  const [x, y] = start;
-  const allCoords = [];
-
-  if (axis === 'x') {
-    for (let i = 0; i < length; i++) {
-      allCoords.push([i + x, y]);
-    }
+/* Generates a random ship position that passes checks:
+  1. ship of length a, placed on axis b will fit within the 10x10 board
+  2. ship does not overlap with an already placed ship */
+const randomShip = (player, length) => {
+  let start;
+  let axis;
+  let valid = false;
+  while (!valid) {
+    const [randomIndex, randomAxis] = getValidStart(player, length);
+    const ship = shipBuilder.buildShip(randomIndex, randomAxis, length);
+    valid = shipBuilder.noOverlap(ship, player);
+    start = randomIndex;
+    axis = randomAxis;
   }
-
-  if (axis === 'y') {
-    for (let i = 0; i < length; i++) {
-      allCoords.push([x, i + y]);
-    }
-  }
-
-  return allCoords;
+  return [start, axis];
 };
 
-const shipFits = (length, axis, coord) => {
-  const [x, y] = coord;
-  if (axis === 'x') {
-    return x + length - 1 <= 9;
-  }
-  if (axis === 'y') {
-    return y + length - 1 <= 9;
-  }
-  return false;
-};
-
-const noOverlap = (ship, comp) => {
-  const { board } = comp;
-  for (let i = 0; i < ship.length; i++) {
-    const [x, y] = ship[i];
-    if (board.hasShip(x, y)) {
-      return false;
-    }
-  }
-  return true;
-};
-
-const getRandomEmpty = (comp) => {
-  const emptyTiles = getEmptyTiles(comp);
-
-  return emptyTiles[Math.floor(Math.random() * emptyTiles.length)];
-};
-
-const getValidStart = (comp, length, axis) => {
-  let validStart = getRandomEmpty(comp);
-
-  while (shipFits(length, axis, validStart) === false) {
-    validStart = getRandomEmpty(comp);
-  }
-
-  return validStart;
-};
-
-const randomShip = (comp, length) => {
-  const axes = ['x', 'y'];
-  const randomAxis = axes[Math.floor(Math.random() * axes.length)];
-
-  let startIndex = getValidStart(comp, length, randomAxis);
-  let ship = buildShip(startIndex, randomAxis, length);
-
-  while (noOverlap(ship, comp) === false) {
-    startIndex = getValidStart(comp, length, randomAxis);
-    ship = buildShip(startIndex, randomAxis, length);
-  }
-
-  return [ship[0], randomAxis];
-};
-
-const placeShips = (comp) => {
+const autoPlace = (player) => {
   const shipLengths = [5, 4, 3, 3, 2];
-  shipLengths.forEach((ship) => {
-    const [start, axis] = randomShip(comp, ship);
-    comp.board.placeShip(ship, start, axis);
+  shipLengths.forEach((length) => {
+    const ship = randomShip(player, length);
+
+    player.board.placeShip(length, ...ship);
   });
 };
 
-export { getRandomMove, placeShips };
+export { autoAttack, autoPlace };
