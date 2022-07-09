@@ -15,9 +15,9 @@ test('place ship; vertical y', () => {
       expect(board.tiles[i][j].shipId).toBe(null);
     }
   }
-  expect(board.tiles[0][5].shipId).toBe(0);
-  expect(board.tiles[0][6].shipId).toBe(0);
-  expect(board.tiles[0][7].shipId).toBe(0);
+  expect(board.tiles[0][5].shipId).toBe(2);
+  expect(board.tiles[0][6].shipId).toBe(2);
+  expect(board.tiles[0][7].shipId).toBe(2);
 });
 
 test('place ship; vertical x', () => {
@@ -30,9 +30,9 @@ test('place ship; vertical x', () => {
       expect(board.tiles[i][j].shipId).toBe(null);
     }
   }
-  expect(board.tiles[0][5].shipId).toBe(0);
-  expect(board.tiles[1][5].shipId).toBe(0);
-  expect(board.tiles[2][5].shipId).toBe(0);
+  expect(board.tiles[0][5].shipId).toBe(2);
+  expect(board.tiles[1][5].shipId).toBe(2);
+  expect(board.tiles[2][5].shipId).toBe(2);
 });
 
 test('ships created from shipFactory, test existence of properties', () => {
@@ -92,19 +92,19 @@ test('receiveAttack and sink', () => {
 
 test('check whether all ships are sunk', () => {
   board.placeShip(2, [1, 0], 'x');
-  board.placeShip(2, [5, 0], 'y');
+  board.placeShip(3, [5, 0], 'y');
   board.receiveAttack([1, 0]);
   board.receiveAttack([2, 0]);
   board.receiveAttack([5, 0]);
   board.receiveAttack([5, 1]);
+  board.receiveAttack([5, 2]);
   expect(board.allShipsSunk()).toBe(true);
 });
 
 test('check number of ships remaining', () => {
   board.placeShip(2, [1, 0], 'x');
-  board.placeShip(2, [3, 0], 'x');
+  board.placeShip(3, [3, 0], 'x');
   board.receiveAttack([1, 0]);
   board.receiveAttack([2, 0]);
   expect(board.shipsRemaining()).toBe(1);
 })
-

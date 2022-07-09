@@ -19,8 +19,29 @@ export default function gameboardFactory() {
 
   const ships = [];
 
+  const mapShipId = (length) => {
+    let id;
+    switch (length) {
+      case 5:
+        id = 0;
+        break;
+      case 4:
+        id = 1;
+        break;
+      case 2:
+        id = 4;
+        break;
+      case 3:
+        id = ships.some((ship) => ship.id === 2) ? 3 : 2;
+        break;
+      // No default
+    }
+    return id;
+  };
+
   const placeShip = (length, [x, y], axis) => {
-    const newShip = shipFactory(ships.length, length);
+    const shipId = mapShipId(length);
+    const newShip = shipFactory(shipId, length);
     ships.push(newShip);
     if (axis === 'x') {
       // Place horizontally
@@ -40,7 +61,9 @@ export default function gameboardFactory() {
     }
   };
 
-  // const hasShip = (tile) => tile.shipId !== null;
+  // const removeShip = (index) => {
+  //   const ship = ships[index];
+  // };
 
   const hasShip = (x, y) => tiles[x][y].shipId !== null;
 
