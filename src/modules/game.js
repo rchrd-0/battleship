@@ -92,15 +92,6 @@ const placeShip = (e) => {
   }
 };
 
-const autoPlacePlayer = () => {
-  const { p1 } = players;
-  const shipsPlaced = getShipsPlaced();
-
-  botLogic.autoPlace(p1, shipsPlaced);
-  dom.renderShips(p1);
-  dom.readyGame(getShipsPlaced());
-};
-
 const undoShip = () => {
   const { p1 } = players;
   if (p1.board.ships.length === 0) return;
@@ -110,6 +101,24 @@ const undoShip = () => {
   dom.renderShips(p1);
   dom.readyGame(getShipsPlaced());
 };
+
+const autoPlacePlayer = () => {
+  const { p1 } = players;
+  const shipsPlaced = getShipsPlaced();
+
+  botLogic.autoPlace(p1, shipsPlaced);
+  dom.renderShips(p1);
+  dom.readyGame(getShipsPlaced());
+
+  if (shipsPlaced === 5) {
+    for (let i = 0; i < 5; i++) {
+      undoShip();
+    }
+    autoPlacePlayer();
+  }
+};
+
+
 
 export {
   newGame,
