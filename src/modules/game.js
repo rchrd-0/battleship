@@ -20,6 +20,7 @@ const newGame = () => {
   dom.toggleBtns('restart', false);
   dom.disableEvents(true, 'com');
   dom.disableEvents(false, 'player');
+  dom.disableBoardFuncs(false);
 };
 
 const startGame = () => {
@@ -28,6 +29,7 @@ const startGame = () => {
   dom.updateBoard(players.com);
   dom.disableEvents(true, 'player');
   dom.disableEvents(false, 'com');
+  dom.disableBoardFuncs(true);
 };
 
 const endGame = (winner) => {

@@ -131,6 +131,15 @@ const readyGame = (length) => {
   }
 };
 
+const disableBoardFuncs = (bool) => {
+  const boardFuncs = document.querySelectorAll('.board-funcs');
+  if (bool) {
+    boardFuncs.forEach((button) => button.setAttribute('disabled', ''));
+  } else {
+    boardFuncs.forEach((button) => button.removeAttribute('disabled'));
+  }
+};
+
 export {
   createBoards,
   clearUI,
@@ -140,4 +149,5 @@ export {
   announceGameOver,
   toggleBtns,
   readyGame,
+  disableBoardFuncs,
 };
