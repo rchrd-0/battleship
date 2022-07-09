@@ -29,15 +29,19 @@ const createBoards = () => {
 const renderShips = (player) => {
   const board = player.isHuman ? playerBoard : comBoard;
   const { ships } = player.board;
-  const coords = ships.map((ship) => ship.coords);
 
-  for (let i = 0; i < coords.length; i++) {
-    for (let j = 0; j < coords[i].length; j++) {
-      const [x, y] = [coords[i][j][0], coords[i][j][1]];
+  const shipKeys = Object.keys(ships);
+  shipKeys.forEach((key) => {
+    const ship = ships[key];
+    const { id } = ship;
+    const { coords } = ship;
+    for (let i = 0; i < coords.length; i++) {
+      const [x, y] = coords[i];
       const thisCell = board.querySelector(`[data-x='${x}'][data-y='${y}']`);
       thisCell.classList.add('ship');
+      thisCell.dataset.shipId = id;
     }
-  }
+  });
   updateShipCount(player);
 };
 
@@ -77,6 +81,7 @@ const clearUI = (...players) => {
     const cells = board.querySelectorAll('.board-cell');
     cells.forEach((cell) => {
       cell.classList.remove('miss', 'hit', 'ship');
+      cell.removeAttribute('data-ship-id');
     });
   });
   players.forEach((player) => updateShipCount(player));

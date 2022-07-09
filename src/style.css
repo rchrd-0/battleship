@@ -147,22 +147,23 @@ button {
   background-position: center;
 }
 
-.board-cell.ship {
+[data-ship-id="0"] {
   background-color: var(--green-blue);
 }
-.board-cell.ship[data-ship-id="0"] {
-  background-color: var(--green-blue);
-}
-.board-cell.ship[data-ship-id="1"] {
+
+[data-ship-id="1"] {
   background-color: #3e99a3;
 }
-.board-cell.ship[data-ship-id="2"] {
+
+[data-ship-id="2"] {
   background-color: #97d1d8;
 }
-.board-cell.ship[data-ship-id="3"] {
+
+[data-ship-id="3"] {
   background-color: #59a3ab;
 }
-.board-cell.ship[data-ship-id="4"] {
+
+[data-ship-id="4"] {
   background-color: #4eb1bc;
 }
 
