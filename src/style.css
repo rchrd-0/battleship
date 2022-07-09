@@ -1,6 +1,17 @@
-/* :root {
-  
-} */
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@600&display=swap");
+:root {
+  --background: #161823;
+  --primary: #262C48;
+  --board: #3B4161;
+  --grey: #727790;
+  --text: #c7c9d3;
+  --purple: #A88FD2;
+  --blue: #75A1D0;
+  --green-blue: #66BCC5;
+  --green: #AEC873;
+  --orange: #FB9F62;
+  --red: #FF6972;
+}
 
 html,
 body,
@@ -38,6 +49,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: "Atkinson Hyperlegible", Helvetica, Arial, sans-serif;
+  background-image: url('./assets/background.svg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 main {
@@ -51,6 +69,16 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 120px;
+}
+
+header h1 {
+  font-family: "Jost", Helvetica, Arial sans-serif;
+  font-size: 3.5rem;
+  text-transform: uppercase;
+}
+
+header h1 span {
+  color: var(--green-blue);
 }
 
 #game {
@@ -81,11 +109,14 @@ button {
 }
 
 .board {
-  height: 350px;
-  width: 350px;
+  height: 400px;
+  width: 400px;
   display: grid;
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
+  border-radius: 9px;
+  border: 1px solid var(--primary);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .no-events {
@@ -101,8 +132,8 @@ button {
 }
 
 .board-cell {
-  background-color: grey;
-  border: 1px solid black;
+  background-color: var(--grey);
+  border: 1px solid var(--primary);
 }
 
 .board-cell.ship {
@@ -138,5 +169,14 @@ button {
 }
 
 .board-cell[data-x="0"][data-y="0"] {
-
+  border-top-left-radius: 8px;
+}
+.board-cell[data-x="9"][data-y="0"] {
+  border-top-right-radius: 8px;
+}
+.board-cell[data-x="0"][data-y="9"] {
+  border-bottom-left-radius: 8px;
+}
+.board-cell[data-x="9"][data-y="9"] {
+  border-bottom-right-radius: 8px;
 }
