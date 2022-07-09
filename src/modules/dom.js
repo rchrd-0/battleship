@@ -34,7 +34,6 @@ const renderShips = (player) => {
   for (let i = 0; i < coords.length; i++) {
     for (let j = 0; j < coords[i].length; j++) {
       const [x, y] = [coords[i][j][0], coords[i][j][1]];
-      // const thisCell = playerBoard.querySelector(
       const thisCell = board.querySelector(`[data-x='${x}'][data-y='${y}']`);
       thisCell.classList.add('ship');
     }

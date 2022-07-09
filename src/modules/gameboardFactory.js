@@ -14,7 +14,7 @@ export default function gameboardFactory() {
     }
     return gameboard;
   };
-  // const misses = [];
+
   const tiles = createBoard();
 
   const ships = [];
@@ -86,9 +86,6 @@ export default function gameboardFactory() {
     const thisTile = tiles[x][y];
     if (thisTile.hit) return;
 
-    // if (!hasShip(thisTile)) {
-    //   misses.push(target);
-    // }
     if (hasShip(x, y)) {
       const thisShip = findShip(thisTile.shipId);
       for (let i = 0; i < thisShip.coords.length; i++) {

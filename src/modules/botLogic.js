@@ -53,12 +53,6 @@ const autoPlace = (player, shipsSoFar = 0) => {
     const ship = randomShip(player, length);
     player.board.placeShip(length, ...ship);
   }
-
-  // shipLengths.forEach((length) => {
-  //   const ship = randomShip(player, length);
-
-  //   player.board.placeShip(length, ...ship);
-  // });
 };
 
 export { autoAttack, autoPlace };

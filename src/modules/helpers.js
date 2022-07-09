@@ -72,7 +72,6 @@ export {
   alreadyPlayed,
   timeout,
   getRandomTile,
-  getEmptyTiles,
   getRandomEmpty,
   nextShipLength,
   getRandomAxis,

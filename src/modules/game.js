@@ -28,9 +28,6 @@ const startGame = () => {
   dom.updateBoard(players.com);
   dom.disableEvents(true, 'player');
   dom.disableEvents(false, 'com');
-
-  // Remove
-  // dom.renderShips(players.com);
 };
 
 const endGame = (winner) => {

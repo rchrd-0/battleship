@@ -18,9 +18,6 @@ export default function playerFactory(num, human) {
     get isHuman() {
       return human;
     },
-    // get turn() {
-    //   return turn;
-    // },
     get moves() {
       return moves;
     },
