@@ -8,36 +8,33 @@
   <script defer src="main.js"></script><link href="style.css" rel="stylesheet"></head>
   <body>
     <main>
-      <header>Battleship</header>
-      <div id="game-info"></div>
-      <div id="game-buttons">
-        <button type="button" id="start-btn" disabled>Start game</button>
-        <button type="button" id="restart-btn">Restart</button>
+      <div id="player-buttons">
+        <button type="button" class="board-funcs" id="auto-ship">Auto</button>
+        <button type="button" class="board-funcs" id="rotate">Rotate</button>
+        <button type="button" class="board-funcs" id="undo-ship">Undo</button>
+        <button type="button" class="board-funcs" id="reset-ship">Reset</button>
       </div>
-      <div id="game">
-        <div class="game-container" id="player-container">
-          <div class="ship-counter">Ships remaining: 0</div>
-          <div class="board no-events" id="player-board" data-board="p1"></div>
-          <div id="player-buttons">
-            <button type="button" class="board-funcs" id="auto-ship">
-              Auto
-            </button>
-            <button type="button" class="board-funcs" id="rotate-ship">
-              Rotate
-            </button>
-            <button type="button" class="board-funcs" id="undo-ship">
-              Undo
-            </button>
-            <button type="button" class="board-funcs" id="reset-ship">
-              Reset
-            </button>
+      <section id="game">
+        <header>
+          Battleship
+          <div id="game-info">foo</div>
+          <div id="game-buttons">
+            <button type="button" id="start-btn" disabled>Start game</button>
+            <button type="button" id="restart-btn">Restart</button>
+          </div>
+        </header>
+        <div id="board-space">
+          <div class="game-container" id="player-container">
+            <div class="ship-counter">Ships remaining: 0</div>
+            <div class="board" id="player-board" data-board="p1"></div>
+          </div>
+          <div class="game-container" id="com-container">
+            <div class="ship-counter">Ships remaining: 0</div>
+            <div class="board no-events" id="com-board" data-board="com"></div>
           </div>
         </div>
-        <div class="game-container" id="com-container">
-          <div class="ship-counter">Ships remaining: 0</div>
-          <div class="board no-events" id="com-board" data-board="com"></div>
-        </div>
-      </div>
+      </section>
     </main>
+    <footer>footer placeholder</footer>
   </body>
 </html>

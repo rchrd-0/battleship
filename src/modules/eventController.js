@@ -22,7 +22,7 @@ const initGameButtons = () => {
   const autoBtn = document.querySelector('#auto-ship');
   autoBtn.addEventListener('click', game.autoPlacePlayer);
 
-  const rotateBtn = document.querySelector('#rotate-ship');
+  const rotateBtn = document.querySelector('#rotate');
   rotateBtn.addEventListener('click', shipBuilder.switchAxis);
 
   const undoBtn = document.querySelector('#undo-ship');
