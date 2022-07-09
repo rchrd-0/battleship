@@ -25,7 +25,8 @@ const initGameButtons = () => {
   const rotateBtn = document.querySelector('#rotate-ship');
   rotateBtn.addEventListener('click', shipBuilder.switchAxis);
 
-  // const undoBtn = document.querySelector('#undo-ship');
+  const undoBtn = document.querySelector('#undo-ship');
+  undoBtn.addEventListener('click', game.undoShip);
 
   const resetBtn = document.querySelector('#reset-ship');
   resetBtn.addEventListener('click', game.newGame);

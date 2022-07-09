@@ -89,8 +89,7 @@ const placeShip = (e) => {
     shipBuilder.clearPreview();
     dom.renderShips(p1);
 
-    const shipsPlacedEnd = getShipsPlaced();
-    if (shipsPlacedEnd === 5) dom.toggleBtns('start', false);
+    dom.readyGame(getShipsPlaced());
   }
 };
 
@@ -100,8 +99,17 @@ const autoPlacePlayer = () => {
 
   botLogic.autoPlace(p1, shipsPlaced);
   dom.renderShips(p1);
-  const shipsPlacedEnd = getShipsPlaced();
-  if (shipsPlacedEnd === 5) dom.toggleBtns('start', false);
+  dom.readyGame(getShipsPlaced());
+};
+
+const undoShip = () => {
+  const { p1 } = players;
+  if (p1.board.ships.length === 0) return;
+  p1.board.removeLastShip();
+
+  dom.clearUI(p1);
+  dom.renderShips(p1);
+  dom.readyGame(getShipsPlaced());
 };
 
 export {
@@ -111,4 +119,5 @@ export {
   placeShip,
   getShipsPlaced,
   autoPlacePlayer,
+  undoShip,
 };

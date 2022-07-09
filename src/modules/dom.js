@@ -124,6 +124,14 @@ const toggleBtns = (button, state) => {
   }
 };
 
+const readyGame = (length) => {
+  if (length === 5) {
+    toggleBtns('start', false);
+  } else {
+    toggleBtns('start', true);
+  }
+};
+
 export {
   createBoards,
   clearUI,
@@ -132,4 +140,5 @@ export {
   disableEvents,
   announceGameOver,
   toggleBtns,
+  readyGame,
 };
