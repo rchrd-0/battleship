@@ -1,16 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@600&display=swap");
 :root {
   --background: #161823;
-  --primary: #262C48;
-  --board: #3B4161;
+  --primary: #262c48;
+  --board: #3b4161;
   --grey: #727790;
   --text: #c7c9d3;
-  --purple: #A88FD2;
-  --blue: #75A1D0;
-  --green-blue: #66BCC5;
-  --green: #AEC873;
-  --orange: #FB9F62;
-  --red: #FF6972;
+  --purple: #a88fd2;
+  --blue: #75a1d0;
+  --green-blue: #66bcc5;
+  --red: #ffadc4;
 }
 
 html,
@@ -52,7 +50,7 @@ body {
   background-color: var(--background);
   color: var(--text);
   font-family: "Atkinson Hyperlegible", Helvetica, Arial, sans-serif;
-  background-image: url('./assets/background.svg');
+  background-image: url("./assets/background.svg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -68,7 +66,7 @@ header {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 120px;
+  height: 180px;
 }
 
 header h1 {
@@ -116,7 +114,8 @@ button {
   grid-template-columns: repeat(10, 1fr);
   border-radius: 9px;
   border: 1px solid var(--primary);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 .no-events {
@@ -131,33 +130,63 @@ button {
   grid-area: 1 / 1 / 2 / -1;
 }
 
+#cell-swatch {
+  display: flex;
+}
+
+#cell-swatch .board-cell {
+  width: 40px;
+  height: 40px;
+}
+
 .board-cell {
   background-color: var(--grey);
   border: 1px solid var(--primary);
+  background-size: 28px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .board-cell.ship {
-  background-color: blue;
+  background-color: var(--green-blue);
+}
+.board-cell.ship[data-ship-id="0"] {
+  background-color: var(--green-blue);
+}
+.board-cell.ship[data-ship-id="1"] {
+  background-color: #3e99a3;
+}
+.board-cell.ship[data-ship-id="2"] {
+  background-color: #97d1d8;
+}
+.board-cell.ship[data-ship-id="3"] {
+  background-color: #59a3ab;
+}
+.board-cell.ship[data-ship-id="4"] {
+  background-color: #4eb1bc;
 }
 
 .board-cell.hit {
-  background-color: red;
+  background-color: var(--red);
+  background-image: url("./assets/crosshair.svg");
 }
 
 .board-cell.miss {
-  background-color: yellow;
+  background-color: #75a1d0;
+  background-image: url("./assets/droplet.svg");
 }
 
 .board-cell.ship-preview {
-  background-color: green;
+  background-color: var(--purple);
 }
 
 .board-cell.invalid {
-  background-color: crimson;
+  background-color: var(--red);
+  background-image: url("./assets/slash.svg");
 }
 
 .game-over {
-  filter: opacity(0.8) grayscale(75%);
+  filter: opacity(0.8) brightness(0.7);
 }
 
 #player-buttons {
