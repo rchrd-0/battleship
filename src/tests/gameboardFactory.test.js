@@ -107,4 +107,17 @@ test('check number of ships remaining', () => {
   board.receiveAttack([1, 0]);
   board.receiveAttack([2, 0]);
   expect(board.shipsRemaining()).toBe(1);
-})
+});
+
+test('remove ship', () => {
+  board.placeShip(5, [0, 0], 'x');
+  board.removeLastShip(0);
+  const tiles = [
+    board.tiles[0][0].shipId,
+    board.tiles[1][0].shipId,
+    board.tiles[2][0].shipId,
+    board.tiles[3][0].shipId,
+    board.tiles[4][0].shipId,
+  ];
+  expect(tiles.every((tile) => tile === null)).toBe(true);
+});

@@ -61,9 +61,13 @@ export default function gameboardFactory() {
     }
   };
 
-  // const removeShip = (index) => {
-  //   const ship = ships[index];
-  // };
+  const removeLastShip = () => {
+    const [ship] = ships.splice(ships.length - 1, 1);
+    for (let i = 0; i < ship.coords.length; i++) {
+      const [x, y] = ship.coords[i];
+      tiles[x][y].shipId = null;
+    }
+  };
 
   const hasShip = (x, y) => tiles[x][y].shipId !== null;
 
@@ -116,5 +120,6 @@ export default function gameboardFactory() {
     receiveAttack,
     shipsRemaining,
     allShipsSunk,
+    removeLastShip,
   };
 }
