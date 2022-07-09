@@ -134,17 +134,13 @@ const clearPreview = () => {
   cells.forEach((cell) => cell.classList.remove('ship-preview', 'invalid'));
 };
 
-const getPreview = () => [...playerBoard.querySelectorAll('.ship-preview')];
-
 export {
   buildShip,
   noOverlap,
   doesShipFit,
-  isPreviewValid,
   getAxis,
   switchAxis,
   previewShip,
   clearPreview,
-  getPreview,
   isShipValid,
 };

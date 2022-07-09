@@ -1,10 +1,10 @@
 const gameboards = document.querySelectorAll('.board');
 const playerBoard = document.querySelector('#player-board');
-const compBoard = document.querySelector('#comp-board');
+const comBoard = document.querySelector('#com-board');
 const gameInfo = document.querySelector('#game-info');
 
 const updateShipCount = (player) => {
-  const thisBoard = player.isHuman ? playerBoard : compBoard;
+  const thisBoard = player.isHuman ? playerBoard : comBoard;
   const shipCounter = thisBoard.previousElementSibling;
   const shipsRemaining = player.board.shipsRemaining();
 
@@ -27,15 +27,15 @@ const createBoards = () => {
 };
 
 const renderShips = (player) => {
+  const board = player.isHuman ? playerBoard : comBoard;
   const { ships } = player.board;
   const coords = ships.map((ship) => ship.coords);
 
   for (let i = 0; i < coords.length; i++) {
     for (let j = 0; j < coords[i].length; j++) {
       const [x, y] = [coords[i][j][0], coords[i][j][1]];
-      const thisCell = playerBoard.querySelector(
-        `[data-x='${x}'][data-y='${y}']`
-      );
+      // const thisCell = playerBoard.querySelector(
+      const thisCell = board.querySelector(`[data-x='${x}'][data-y='${y}']`);
       thisCell.classList.add('ship');
     }
   }
@@ -43,7 +43,7 @@ const renderShips = (player) => {
 };
 
 const updateBoard = (player) => {
-  const thisBoard = player.isHuman ? playerBoard : compBoard;
+  const thisBoard = player.isHuman ? playerBoard : comBoard;
   const { board } = player;
   const { tiles } = board;
   for (let i = 0; i < tiles.length; i++) {
@@ -95,7 +95,7 @@ const announceGameOver = (winner) => {
 };
 
 const disableEvents = (bool, board) => {
-  const thisBoard = board === 'comp' ? compBoard : playerBoard;
+  const thisBoard = board === 'com' ? comBoard : playerBoard;
   if (bool) {
     thisBoard.classList.add('no-events');
   } else {

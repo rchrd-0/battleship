@@ -45,13 +45,20 @@ const randomShip = (player, length) => {
   return [start, axis];
 };
 
-const autoPlace = (player) => {
-  const shipLengths = [5, 4, 3, 3, 2];
-  shipLengths.forEach((length) => {
-    const ship = randomShip(player, length);
+const autoPlace = (player, shipsSoFar = 0) => {
+  const ships = [5, 4, 3, 3, 2];
 
+  for (let i = shipsSoFar; i < ships.length; i++) {
+    const length = ships[i];
+    const ship = randomShip(player, length);
     player.board.placeShip(length, ...ship);
-  });
+  }
+
+  // shipLengths.forEach((length) => {
+  //   const ship = randomShip(player, length);
+
+  //   player.board.placeShip(length, ...ship);
+  // });
 };
 
 export { autoAttack, autoPlace };

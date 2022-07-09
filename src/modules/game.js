@@ -18,7 +18,7 @@ const newGame = () => {
   dom.clearUI(players.p1, players.com);
   dom.toggleBtns('start', true);
   dom.toggleBtns('restart', false);
-  dom.disableEvents(true, 'comp');
+  dom.disableEvents(true, 'com');
   dom.disableEvents(false, 'player');
 };
 
@@ -27,11 +27,14 @@ const startGame = () => {
   dom.toggleBtns('start', true);
   dom.updateBoard(players.com);
   dom.disableEvents(true, 'player');
-  dom.disableEvents(false, 'comp');
+  dom.disableEvents(false, 'com');
+
+  // Remove
+  // dom.renderShips(players.com);
 };
 
 const endGame = (winner) => {
-  dom.disableEvents(true, 'comp');
+  dom.disableEvents(true, 'com');
   dom.toggleBtns('restart', true);
   dom.announceGameOver(winner);
 };
@@ -47,7 +50,7 @@ const playComMove = async () => {
   if (winState) {
     endGame(com);
   } else {
-    dom.disableEvents(false, 'comp');
+    dom.disableEvents(false, 'com');
   }
 };
 
@@ -63,34 +66,42 @@ const receivePlayerMove = (coord) => {
   } else {
     playComMove(p1, com);
   }
-  dom.disableEvents(true, 'comp');
+  dom.disableEvents(true, 'com');
 };
 
-const getNextShip = () => {
-  const shipsPlaced = players.p1.board.ships.length;
-  return helpers.nextShipLength(shipsPlaced);
-};
+const getShipsPlaced = () => players.p1.board.ships.length;
 
 const placeShip = (e) => {
   const { p1 } = players;
-  if (e.target.classList.contains('board') || p1.board.ships.length >= 5) {
+  const shipsPlacedStart = getShipsPlaced();
+
+  if (e.target.classList.contains('board') || shipsPlacedStart >= 5) {
     return;
   }
 
   const startIndex = helpers.getCellInfo(e.target);
-  const length = getNextShip();
+  const nextShip = helpers.nextShipLength(shipsPlacedStart);
   const axis = shipBuilder.getAxis();
-  const shipValid = shipBuilder.isShipValid(p1, startIndex, axis, length);
+  const shipValid = shipBuilder.isShipValid(p1, startIndex, axis, nextShip);
 
   if (shipValid) {
-    p1.board.placeShip(length, startIndex, axis);
+    p1.board.placeShip(nextShip, startIndex, axis);
     shipBuilder.clearPreview();
     dom.renderShips(p1);
 
-    if (p1.board.ships.length === 5) {
-      dom.toggleBtns('start', false);
-    }
+    const shipsPlacedEnd = getShipsPlaced();
+    if (shipsPlacedEnd === 5) dom.toggleBtns('start', false);
   }
+};
+
+const autoPlacePlayer = () => {
+  const { p1 } = players;
+  const shipsPlaced = getShipsPlaced();
+
+  botLogic.autoPlace(p1, shipsPlaced);
+  dom.renderShips(p1);
+  const shipsPlacedEnd = getShipsPlaced();
+  if (shipsPlacedEnd === 5) dom.toggleBtns('start', false);
 };
 
 export {
@@ -98,6 +109,6 @@ export {
   startGame,
   receivePlayerMove,
   placeShip,
-  getNextShip,
-  players,
+  getShipsPlaced,
+  autoPlacePlayer,
 };
