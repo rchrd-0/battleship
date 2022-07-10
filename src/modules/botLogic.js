@@ -1,14 +1,39 @@
 import * as helpers from './helpers';
 import * as shipBuilder from './shipBuilder';
 
-// Random move (attack)
-const autoAttack = async (player) => {
-  let randomMove = helpers.getRandomTile();
-  while (helpers.alreadyPlayed(player, randomMove)) {
-    randomMove = helpers.getRandomTile();
+const findSmartishMoves = (com, player) => {
+  const previousHits = com.moves.filter(([x, y]) => {
+    return player.board.tiles[x][y].shipId !== null;
+  });
+
+  const adjacentTiles = [];
+  for (let i = 0; i < previousHits.length; i++) {
+    const tile = previousHits[i];
+    const output = helpers.getAdjacentTiles(tile);
+    for (let j = 0; j < output.length; j++) {
+      adjacentTiles.push(output[j]);
+    }
+  }
+
+  return adjacentTiles.filter(([x, y]) => {
+    return player.board.tiles[x][y].hit === false;
+  });
+};
+
+const autoAttack = async (com, player) => {
+  const smartishMoves = findSmartishMoves(com, player);
+  let move;
+  if (smartishMoves.length > 0) {
+    move = smartishMoves[Math.floor(Math.random() * smartishMoves.length)];
+  } else {
+    let randomMove = helpers.getRandomTile();
+    while (helpers.alreadyPlayed(com, randomMove)) {
+      randomMove = helpers.getRandomTile();
+    }
+    move = randomMove;
   }
   await helpers.timeout(400);
-  return randomMove;
+  return move;
 };
 
 /* Random ship placement */

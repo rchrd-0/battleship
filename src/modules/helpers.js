@@ -12,6 +12,20 @@ const alreadyPlayed = (player, target) => {
   return false;
 };
 
+const getAdjacentTiles = (tile) => {
+  const [x, y] = tile;
+  const adjacentTiles = [
+    [x + 1, y],
+    [x - 1, y],
+    [x, y + 1],
+    [x, y - 1],
+  ];
+  return adjacentTiles.filter((adjacent) => {
+    const [a, b] = adjacent;
+    return a >= 0 && a <= 9 && b >= 0 && b <= 9;
+  });
+};
+
 const timeout = (ms) => {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
@@ -75,4 +89,5 @@ export {
   getRandomEmpty,
   nextShipLength,
   getRandomAxis,
+  getAdjacentTiles,
 };

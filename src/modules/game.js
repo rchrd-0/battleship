@@ -43,7 +43,7 @@ const endGame = (winner) => {
 
 const playComMove = async () => {
   const { p1, com } = players;
-  const comAttack = await botLogic.autoAttack(com);
+  const comAttack = await botLogic.autoAttack(com, p1);
 
   com.makeMove(comAttack, p1.board);
   dom.updateBoard(p1);
