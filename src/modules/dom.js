@@ -11,12 +11,21 @@ const updateShipCount = (player) => {
   shipCounter.textContent = `Ships remaining: ${shipsRemaining}`;
 };
 
+const hideShipCount = (bool) => {
+  const shipCounters = document.querySelectorAll('.ship-counter');
+  if (bool) {
+    shipCounters.forEach((element) => element.classList.add('opacity-0'));
+  } else {
+    shipCounters.forEach((element) => element.classList.remove('opacity-0'));
+  }
+};
+
 const createBoards = () => {
   gameboards.forEach((board) => {
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         const boardCell = document.createElement('div');
-        
+
         boardCell.classList.add('board-cell');
         boardCell.dataset.x = j;
         boardCell.dataset.y = i;
@@ -88,6 +97,17 @@ const clearUI = (...players) => {
   styleGameOver(false);
 };
 
+const gameMessage = (state, numShips) => {
+  const remainingShips = 5 - numShips;
+  const messages = {
+    setup: `Board setup ... ${remainingShips} ship(s) to place`,
+    ready: 'Game ready to start',
+    p1Turn: 'Player\'s turn',
+    comTurn: '↺ thinking ...',
+  };
+  gameInfo.textContent = messages[state];
+};
+
 const announceGameOver = (winner) => {
   const winMessage =
     winner.num === 1
@@ -131,17 +151,22 @@ const toggleBtns = (button, state) => {
 const readyGame = (length) => {
   if (length === 5) {
     toggleBtns('start', false);
+    gameMessage('ready');
   } else {
+    gameMessage('setup', length);
     toggleBtns('start', true);
   }
 };
 
 const disableBoardFuncs = (bool) => {
   const boardFuncs = document.querySelectorAll('.board-funcs');
+  const buttonContainer = document.querySelector('#player-buttons');
   if (bool) {
     boardFuncs.forEach((button) => button.setAttribute('disabled', ''));
+    buttonContainer.classList.add('opacity-0');
   } else {
     boardFuncs.forEach((button) => button.removeAttribute('disabled'));
+    buttonContainer.classList.remove('opacity-0');
   }
 };
 
@@ -155,4 +180,6 @@ export {
   toggleBtns,
   readyGame,
   disableBoardFuncs,
+  gameMessage,
+  hideShipCount,
 };

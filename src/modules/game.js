@@ -21,15 +21,20 @@ const newGame = () => {
   dom.disableEvents(true, 'com');
   dom.disableEvents(false, 'player');
   dom.disableBoardFuncs(false);
+  dom.gameMessage('setup', players.p1.board.ships.length);
+  dom.hideShipCount(true);
 };
 
 const startGame = () => {
   botLogic.autoPlace(players.com);
+
   dom.toggleBtns('start', true);
   dom.updateBoard(players.com);
   dom.disableEvents(true, 'player');
   dom.disableEvents(false, 'com');
   dom.disableBoardFuncs(true);
+  dom.gameMessage('p1Turn');
+  dom.hideShipCount(false);
 };
 
 const endGame = (winner) => {
@@ -50,6 +55,7 @@ const playComMove = async () => {
     endGame(com);
   } else {
     dom.disableEvents(false, 'com');
+    dom.gameMessage('p1Turn');
   }
 };
 
@@ -64,6 +70,7 @@ const receivePlayerMove = (coord) => {
     endGame(p1);
   } else {
     playComMove(p1, com);
+    dom.gameMessage('comTurn');
   }
   dom.disableEvents(true, 'com');
 };
@@ -88,7 +95,8 @@ const placeShip = (e) => {
     shipBuilder.clearPreview();
     dom.renderShips(p1);
 
-    dom.readyGame(getShipsPlaced());
+    const shipsPlacedEnd = getShipsPlaced();
+    dom.readyGame(shipsPlacedEnd);
   }
 };
 
@@ -117,8 +125,6 @@ const autoPlacePlayer = () => {
     autoPlacePlayer();
   }
 };
-
-
 
 export {
   newGame,

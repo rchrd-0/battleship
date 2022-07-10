@@ -18,11 +18,6 @@ h1,
 header,
 main,
 section,
-nav,
-h2,
-p,
-ul,
-li,
 a,
 button {
   margin: 0;
@@ -41,6 +36,8 @@ html {
   box-sizing: inherit;
 }
 
+/* High-level layout */
+
 body {
   height: 100vh;
   display: flex;
@@ -58,19 +55,39 @@ body {
 main {
   margin: 50px 0 0 50px;
   display: flex;
+  user-select: none;
 }
+
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* General appearance styles */
+
+.no-events {
+  pointer-events: none;
+}
+
+.opacity-0 {
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Header */
 
 header {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  height: 180px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 header h1 {
   font-family: "Jost", Helvetica, Arial sans-serif;
-  font-size: 3.5rem;
+  font-size: 3.6rem;
   text-transform: uppercase;
 }
 
@@ -78,28 +95,20 @@ header h1 span {
   color: var(--green-blue);
 }
 
-#game {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  user-select: none;
-}
-
 #game-info {
-  width: 300px;
-  padding: 20px;
+  margin-top: 10px;
+  font-size: 1.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: grey;
-  height: 30px;
 }
 
-#board-space {
+#game-buttons {
   display: flex;
-  gap: 50px;
-  font-size: 1.6rem;
+  gap: 12px;
 }
+
+/* Button styling */
 
 main button {
   font-family: "Fira Sans", Helvetica, Arial, sans-serif;
@@ -111,16 +120,6 @@ main button {
   transition: all 0.2s ease-in-out;
 }
 
-#game-buttons button {
-  background-color: var(--blue);
-  color: var(--text);
-}
-
-#player-buttons button {
-  background-color: #3b4161;
-  color: var(--text);
-}
-
 button:active {
   filter: brightness(0.7);
   transition: all 0.1s ease-in-out;
@@ -129,6 +128,42 @@ button:active {
 button:disabled {
   filter: brightness(0.4);
   transition: all 0.1s ease-in-out;
+}
+
+#game-buttons button {
+  background-color: var(--blue);
+  color: var(--text);
+}
+
+#player-buttons {
+  margin: 170px 20px 0 0;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#player-buttons button {
+  background-color: #3b4161;
+  color: var(--text);
+}
+
+/* Gameboard, space and cell styling */
+
+#board-space {
+  display: flex;
+  gap: 50px;
+  font-size: 1.6rem;
+}
+
+.ship-counter {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: 1 / 1 / 2 / -1;
+  margin: 20px 0 10px;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .board {
@@ -144,25 +179,35 @@ button:disabled {
   transition: opacity 0.2s ease-in-out, brightness 0.2s ease-in-out;
 }
 
-.no-events {
-  pointer-events: none;
-}
-
-.ship-counter {
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-area: 1 / 1 / 2 / -1;
-  margin: 20px 0 10px;
-}
-
 .board-cell {
   position: relative;
   background-color: var(--grey);
   border: 1px solid var(--primary);
   transition: background-color 0.1s ease-in-out;
 }
+
+.board-cell[data-x="0"][data-y="0"] {
+  border-top-left-radius: 8px;
+}
+
+.board-cell[data-x="9"][data-y="0"] {
+  border-top-right-radius: 8px;
+}
+
+.board-cell[data-x="0"][data-y="9"] {
+  border-bottom-left-radius: 8px;
+}
+
+.board-cell[data-x="9"][data-y="9"] {
+  border-bottom-right-radius: 8px;
+}
+
+.game-over {
+  filter: opacity(0.8) brightness(0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Ship colours */
 
 [data-ship-id="0"] {
   background-color: var(--green-blue);
@@ -183,6 +228,8 @@ button:disabled {
 [data-ship-id="4"] {
   background-color: #4eb1bc;
 }
+
+/* Game states (hit, miss, preview, invalid */
 
 .board-cell.hit {
   background-color: var(--red);
@@ -230,30 +277,4 @@ button:disabled {
   background-image: url("./assets/crosshair.svg");
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
-}
-
-.game-over {
-  filter: opacity(0.8) brightness(0.5);
-  transition: all 0.2s ease-in-out;
-}
-
-#player-buttons {
-  margin: 170px 20px 0 0;
-  gap: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.board-cell[data-x="0"][data-y="0"] {
-  border-top-left-radius: 8px;
-}
-.board-cell[data-x="9"][data-y="0"] {
-  border-top-right-radius: 8px;
-}
-.board-cell[data-x="0"][data-y="9"] {
-  border-bottom-left-radius: 8px;
-}
-.board-cell[data-x="9"][data-y="9"] {
-  border-bottom-right-radius: 8px;
 }
