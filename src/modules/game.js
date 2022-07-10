@@ -16,8 +16,7 @@ const newGame = () => {
   players.com = playerFactory(2, false);
 
   dom.clearUI(players.p1, players.com);
-  dom.toggleBtns('start', true);
-  dom.toggleBtns('restart', false);
+  dom.toggleStart(true);
   dom.disableEvents(true, 'com');
   dom.disableEvents(false, 'player');
   dom.disableBoardFuncs(false);
@@ -28,7 +27,7 @@ const newGame = () => {
 const startGame = () => {
   botLogic.autoPlace(players.com);
 
-  dom.toggleBtns('start', true);
+  dom.toggleStart(true);
   dom.updateBoard(players.com);
   dom.disableEvents(true, 'player');
   dom.disableEvents(false, 'com');
@@ -39,7 +38,6 @@ const startGame = () => {
 
 const endGame = (winner) => {
   dom.disableEvents(true, 'com');
-  dom.toggleBtns('restart', true);
   dom.announceGameOver(winner);
 };
 

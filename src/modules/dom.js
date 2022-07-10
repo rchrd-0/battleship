@@ -103,7 +103,7 @@ const gameMessage = (state, numShips) => {
     setup: `Board setup ... ${remainingShips} ship(s) to place`,
     ready: 'Game ready to start',
     p1Turn: 'Player\'s turn',
-    comTurn: '↺ thinking ...',
+    comTurn: 'thinking ...',
   };
   gameInfo.textContent = messages[state];
 };
@@ -127,34 +127,23 @@ const disableEvents = (bool, board) => {
   }
 };
 
-const toggleBtns = (button, state) => {
+const toggleStart = (state) => {
   const startBtn = document.querySelector('#start-btn');
-  const restartBtn = document.querySelector('#restart-btn');
 
-  if (button === 'start') {
-    if (state) {
-      startBtn.setAttribute('disabled', '');
-    } else {
-      startBtn.removeAttribute('disabled');
-    }
-  }
-
-  if (button === 'restart') {
-    if (state) {
-      restartBtn.textContent = 'New game';
-    } else {
-      restartBtn.textContent = 'Restart';
-    }
+  if (state) {
+    startBtn.setAttribute('disabled', '');
+  } else {
+    startBtn.removeAttribute('disabled');
   }
 };
 
 const readyGame = (length) => {
   if (length === 5) {
-    toggleBtns('start', false);
+    toggleStart(false);
     gameMessage('ready');
   } else {
+    toggleStart(true);
     gameMessage('setup', length);
-    toggleBtns('start', true);
   }
 };
 
@@ -177,7 +166,7 @@ export {
   updateBoard,
   disableEvents,
   announceGameOver,
-  toggleBtns,
+  toggleStart,
   readyGame,
   disableBoardFuncs,
   gameMessage,
